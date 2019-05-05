@@ -4,7 +4,7 @@ Imports csUtils.Utils
 
 Public Class C00_gst_cim
 
-  Public Function get_page(ByVal report_id As String) As DataRow
+  Public Function get_page(report_id As String) As DataRow
     Dim oledbDa As New OleDbDataAdapter
     Dim OleDbComm As New OleDbCommand
     Dim dtCim As New DataTable
@@ -33,7 +33,7 @@ Public Class C00_gst_cim
     Return prop_dr
   End Function
 
-  Public Function get_fields(ByVal report_id As String) As DataTable
+  Public Function get_fields(report_id As String) As DataTable
     Dim oledbDa As New OleDbDataAdapter
     Dim OleDbComm As New OleDbCommand
     Dim dtLim As New DataTable

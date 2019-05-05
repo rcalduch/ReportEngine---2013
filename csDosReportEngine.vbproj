@@ -110,8 +110,11 @@
     <Compile Include="Data\GST\C00_gst_cli.vb" />
     <Compile Include="Data\GST\C00_gst_fac.vb" />
     <Compile Include="Data\GST\C00_gst_fal.vb" />
+    <Compile Include="Data\GST\C00_gst_fpg.vb" />
     <Compile Include="Data\GST\C00_gst_reb.vb" />
     <Compile Include="Data\GST\C00_gst_sys.vb" />
+    <Compile Include="FAC\R90FAC0003C_Factura.vb" />
+    <Compile Include="FAC\R90FAC0003A_Factura.vb" />
     <Compile Include="FAC\R90FAC0002A_Factura.vb" />
     <Compile Include="FAC\R90FAC0001A_Factura.vb" />
     <Compile Include="FAC\R90FAC0002C_Factura.vb" />
@@ -217,6 +220,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Riualebre_normal.png" />
     <EmbeddedResource Include="Riualebre_transparent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ipmfactura.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

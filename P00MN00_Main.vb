@@ -1,7 +1,7 @@
 ﻿Imports csAppData
-Imports csUtils
 Imports csUtils.Utils
 Imports System.IO
+Imports System.Threading
 
 Public Class P00MN00_Main
     Private CancelProcess As Boolean
@@ -15,11 +15,11 @@ Public Class P00MN00_Main
 
 #Region " General "
 
-    Private Sub P00MN00_Main_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub P00MN00_Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CancelProcess = False
         lblDebug.Visible = False
 
-        watchfolderGST = New System.IO.FileSystemWatcher()
+        watchfolderGST = New FileSystemWatcher()
         watchfolderGST.Path = My.Settings.PathToMonitor
         watchfolderGST.Filter = "*.xml"
 
@@ -30,15 +30,15 @@ Public Class P00MN00_Main
 
     End Sub
 
-    Private Sub cmdSortir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSortir.Click
-        If MessageBox.Show("Si tanqueu la aplicació es pararà el servei d'impressió de la aplicació de CUSTOM. Voleu sortir?", "Gestor de llistats de CUSTOM", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+    Private Sub cmdSortir_Click(sender As Object, e As EventArgs) Handles cmdSortir.Click
+        If MessageBox.Show($"Si tanqueu la aplicació es pararà el servei d'impressió de la aplicació de CUSTOM. Voleu sortir?", $"Gestor de llistats de CUSTOM", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
             AppData.CanLogout = True
             CancelProcess = True
             Me.Close()
         End If
     End Sub
 
-    Private Sub lblTitle_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lblTitle.DoubleClick
+    Private Sub lblTitle_DoubleClick(sender As Object, e As EventArgs) Handles lblTitle.DoubleClick
         If lblDebug.Visible Then
             lblDebug.Visible = False
             AppData.Debug = False
@@ -48,9 +48,9 @@ Public Class P00MN00_Main
         End If
     End Sub
 
-    Private Sub ProcessReports(ByVal source As Object, ByVal e As System.IO.FileSystemEventArgs)
+    Private Sub ProcessReports(source As Object, e As FileSystemEventArgs)
 
-        System.Threading.Thread.Sleep(1000)
+        Thread.Sleep(1000)
 
         JobDone = False
         DebugLog(AppData.Debug, Date.Now.ToString("dd/MM/yyyy HH:mm:ss") + " R90FAC0001A_Factura " + "ProcessReports: " + e.Name)
@@ -64,17 +64,20 @@ Public Class P00MN00_Main
                     Case "201502"
                         ' Riualebre
                         report = New R90FAC0002A_Factura
+                    Case "000400"
+                        ' ipm
+                        report = New R90FAC0003A_Factura
                 End Select
 
             Case "ct"
 
-                Dim CodiLlistat As String
+                Dim codiLlistat As String
                 Dim params As FetchXmlParameter
 
                 params = New FetchXmlParameter(e.FullPath)
-                CodiLlistat = CNull(params.GetValue("CodiLlistat"))
+                codiLlistat = CNull(params.GetValue("CodiLlistat"))
 
-                Select Case CodiLlistat.ToLower
+                Select Case codiLlistat.ToLower
                     Case "ctb41ext"
                         ' extracte de comptes
                         report = New R90CTB0041A_Extracte
@@ -111,7 +114,7 @@ Public Class P00MN00_Main
 
 
         If JobDone Then
-            IO.File.Delete(e.FullPath)
+            File.Delete(e.FullPath)
         End If
 
         Application.DoEvents()

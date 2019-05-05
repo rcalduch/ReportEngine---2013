@@ -130,11 +130,11 @@ Public Class R90CTB0042C_Perdues
 
     Private NowPrinting As NowPrintingEnum
 
-    Public Shadows Property CustomID() As String
+    Public Shadows Property CustomID As String
         Get
             Return mCustomID
         End Get
-        Set(ByVal value As String)
+        Set
             mCustomID = value
         End Set
     End Property
@@ -162,32 +162,32 @@ Public Class R90CTB0042C_Perdues
 #Region " Propietats llistat "
 
     Private mDestinacio As ReportDestinationEnum
-    Public Property Destinacio() As csRpt.ReportDestinationEnum
+    Public Property Destinacio As csRpt.ReportDestinationEnum
         Get
             Return mDestinacio
         End Get
-        Set(ByVal value As csRpt.ReportDestinationEnum)
+        Set
             Destination = value
             mDestinacio = value
         End Set
     End Property
 
     Private mCopies As Integer
-    Public Property Copies() As Integer
+    Public Property Copies As Integer
         Get
             Return mCopies
         End Get
-        Set(ByVal value As Integer)
+        Set
             mCopies = value
         End Set
     End Property
 
     Private mFitxerPdf As String
-    Public Property FitxerPdf() As String
+    Public Property FitxerPdf As String
         Get
             Return mFitxerPdf
         End Get
-        Set(ByVal value As String)
+        Set
             mFitxerPdf = value
         End Set
     End Property
@@ -233,8 +233,8 @@ Public Class R90CTB0042C_Perdues
         sfFar.LineAlignment = StringAlignment.Center
 
         fntTitle = New Font("Arial Narrow", 8, FontStyle.Bold)
-        fntLine = New Font("Arial Narrow", 7, FontStyle.Regular)
-        fntLineB = New Font("Arial Narrow", 7, FontStyle.Bold)
+        fntLine = New Font("Arial Narrow", 8, FontStyle.Regular)
+        fntLineB = New Font("Arial Narrow", 8, FontStyle.Bold)
 
         marginBox = 5
 
@@ -249,7 +249,7 @@ Public Class R90CTB0042C_Perdues
         DrawingTotalsAndExit = False
     End Sub
 
-    Public Overrides Function DrawPage(ByVal Canvas As System.Drawing.Graphics) As Boolean
+    Public Overrides Function DrawPage(Canvas As System.Drawing.Graphics) As Boolean
         Dim hasMoreData As Boolean
 
         If Not DataLoaded Then
@@ -280,7 +280,7 @@ Public Class R90CTB0042C_Perdues
 
     End Function
 
-    Private Sub PrintHeader(ByVal Canvas As System.Drawing.Graphics)
+    Private Sub PrintHeader(Canvas As System.Drawing.Graphics)
         Dim curX As Integer
         Dim col As Integer
         Dim widOT As Integer
@@ -346,7 +346,7 @@ Public Class R90CTB0042C_Perdues
 
     End Sub
 
-    Private Function FillDetail(ByVal Canvas As Graphics) As Boolean
+    Private Function FillDetail(Canvas As Graphics) As Boolean
 
         Do
 
@@ -362,9 +362,9 @@ Public Class R90CTB0042C_Perdues
                 Return False
             End If
 
-            If lin("Titol").ToString.Trim = "B" Then
-                Return True
-            End If
+            'If lin("Titol").ToString.Trim = "B" Then
+            '    Return True
+            'End If
 
             If CurY > BottomYLines - deltaLine Then
                 Return True
@@ -374,7 +374,7 @@ Public Class R90CTB0042C_Perdues
 
     End Function
 
-    Private Function DrawLinBalançPiG(ByVal Canvas As System.Drawing.Graphics) As Boolean
+    Private Function DrawLinBalançPiG(Canvas As System.Drawing.Graphics) As Boolean
         Dim curX As Integer
         Dim col As Integer
         Dim ForceNewPage As Boolean
@@ -479,13 +479,13 @@ Public Class R90CTB0042C_Perdues
 
                 tabStop = 50
 
-                DrawString(Canvas, Formula, fntLine, Brushes.Black, New RectangleF(curX + tabStop + epigrafWidth + ColumnGap, CurY, ColumnWidth(col) - tabStop, 16), sfNear)
+                DrawString(Canvas, Formula, fntLineB, Brushes.Black, New RectangleF(curX + tabStop + epigrafWidth + ColumnGap, CurY, ColumnWidth(col) - tabStop, 16), sfNear)
                 curX += ColumnWidth(col) + ColumnGap : col += 1
                 curX += ColumnWidth(col) + ColumnGap : col += 1
                 curX += ColumnWidth(col) + ColumnGap : col += 1
-                DrawString(Canvas, fmtValueToStr(lin("sdo_ptd_n"), 2, False), fntLine, Brushes.Black, New RectangleF(curX, CurY, ColumnWidth(col), 12), sfFar)
+                DrawString(Canvas, fmtValueToStr(lin("sdo_ptd_n"), 2, False), fntLineB, Brushes.Black, New RectangleF(curX, CurY, ColumnWidth(col), 12), sfFar)
                 curX += ColumnWidth(col) + ColumnGap : col += 1
-                DrawString(Canvas, fmtValueToStr(lin("sdo_ptd_n1"), 2, False), fntLine, Brushes.Black, New RectangleF(curX, CurY, ColumnWidth(col), 12), sfFar)
+                DrawString(Canvas, fmtValueToStr(lin("sdo_ptd_n1"), 2, False), fntLineB, Brushes.Black, New RectangleF(curX, CurY, ColumnWidth(col), 12), sfFar)
 
             End If
 
@@ -525,7 +525,7 @@ Public Class R90CTB0042C_Perdues
 
     End Function
 
-    Protected Overrides Sub Print2Excel(ByVal FileName As String)
+    Protected Overrides Sub Print2Excel(FileName As String)
 
     End Sub
 

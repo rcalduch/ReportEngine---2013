@@ -35,7 +35,7 @@ Public Class R90CTB0041A_DiariOficial
             rpt.NomClient = CNull(params.GetValue("NomClient"))
             rpt.CodiEmpresa = CNull(params.GetValue("CodiEmpresa"))
             rpt.NomEmpresa = CNull(params.GetValue("NomEmpresa"))
-            rpt.TitolLlistat = CNull(params.GetValue("TitolLlistat"))
+            rpt.TitolLlistat = CNull(params.GetValue("TitolLlistat")).Replace("DIARIO CONTABLE", "DIARI COMPTABLE")
             rpt.DataLlistat = CNull(params.GetValue("DataLlistat"))
 
             numCopies = CInt(params.GetValue("Copies"))
@@ -126,11 +126,11 @@ Public Class R90CTB0041C_DiariOficial
 
     Private NowPrinting As NowPrintingEnum
 
-    Public Shadows Property CustomID() As String
+    Public Shadows Property CustomID As String
         Get
             Return mCustomID
         End Get
-        Set(ByVal value As String)
+        Set
             mCustomID = value
         End Set
     End Property
@@ -151,32 +151,32 @@ Public Class R90CTB0041C_DiariOficial
 #Region " Propietats llistat "
 
     Private mDestinacio As ReportDestinationEnum
-    Public Property Destinacio() As csRpt.ReportDestinationEnum
+    Public Property Destinacio As csRpt.ReportDestinationEnum
         Get
             Return mDestinacio
         End Get
-        Set(ByVal value As csRpt.ReportDestinationEnum)
+        Set
             Destination = value
             mDestinacio = value
         End Set
     End Property
 
     Private mCopies As Integer
-    Public Property Copies() As Integer
+    Public Property Copies As Integer
         Get
             Return mCopies
         End Get
-        Set(ByVal value As Integer)
+        Set
             mCopies = value
         End Set
     End Property
 
     Private mFitxerPdf As String
-    Public Property FitxerPdf() As String
+    Public Property FitxerPdf As String
         Get
             Return mFitxerPdf
         End Get
-        Set(ByVal value As String)
+        Set
             mFitxerPdf = value
         End Set
     End Property
@@ -246,7 +246,7 @@ Public Class R90CTB0041C_DiariOficial
         DrawingTotalsAndExit = False
     End Sub
 
-    Public Overrides Function DrawPage(ByVal Canvas As System.Drawing.Graphics) As Boolean
+    Public Overrides Function DrawPage(Canvas As System.Drawing.Graphics) As Boolean
         Dim hasMoreData As Boolean
 
         If Not DataLoaded Then
@@ -277,7 +277,7 @@ Public Class R90CTB0041C_DiariOficial
 
     End Function
 
-    Private Sub PrintHeader(ByVal Canvas As System.Drawing.Graphics)
+    Private Sub PrintHeader(Canvas As System.Drawing.Graphics)
         Dim curX As Integer
         Dim col As Integer
 
@@ -354,7 +354,7 @@ Public Class R90CTB0041C_DiariOficial
 
     End Sub
 
-    Private Function FillDetail(ByVal Canvas As System.Drawing.Graphics) As Boolean
+    Private Function FillDetail(Canvas As System.Drawing.Graphics) As Boolean
 
         Do
 
@@ -378,7 +378,7 @@ Public Class R90CTB0041C_DiariOficial
 
     End Function
 
-    Private Sub DrawLinDiariOficial(ByVal Canvas As System.Drawing.Graphics)
+    Private Sub DrawLinDiariOficial(Canvas As System.Drawing.Graphics)
         Dim curX As Integer
         Dim col As Integer
         Dim Titol As String
@@ -484,7 +484,7 @@ Public Class R90CTB0041C_DiariOficial
 
     End Function
 
-    Protected Overrides Sub Print2Excel(ByVal FileName As String)
+    Protected Overrides Sub Print2Excel(FileName As String)
 
     End Sub
 

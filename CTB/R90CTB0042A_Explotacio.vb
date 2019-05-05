@@ -130,11 +130,11 @@ Public Class R90CTB0042C_Explotacio
 
     Private NowPrinting As NowPrintingEnum
 
-    Public Shadows Property CustomID() As String
+    Public Shadows Property CustomID As String
         Get
             Return mCustomID
         End Get
-        Set(ByVal value As String)
+        Set
             mCustomID = value
         End Set
     End Property
@@ -155,32 +155,32 @@ Public Class R90CTB0042C_Explotacio
 #Region " Propietats llistat "
 
     Private mDestinacio As ReportDestinationEnum
-    Public Property Destinacio() As csRpt.ReportDestinationEnum
+    Public Property Destinacio As csRpt.ReportDestinationEnum
         Get
             Return mDestinacio
         End Get
-        Set(ByVal value As csRpt.ReportDestinationEnum)
+        Set
             Destination = value
             mDestinacio = value
         End Set
     End Property
 
     Private mCopies As Integer
-    Public Property Copies() As Integer
+    Public Property Copies As Integer
         Get
             Return mCopies
         End Get
-        Set(ByVal value As Integer)
+        Set
             mCopies = value
         End Set
     End Property
 
     Private mFitxerPdf As String
-    Public Property FitxerPdf() As String
+    Public Property FitxerPdf As String
         Get
             Return mFitxerPdf
         End Get
-        Set(ByVal value As String)
+        Set
             mFitxerPdf = value
         End Set
     End Property
@@ -241,7 +241,7 @@ Public Class R90CTB0042C_Explotacio
         DrawingTotalsAndExit = False
     End Sub
 
-    Public Overrides Function DrawPage(ByVal Canvas As System.Drawing.Graphics) As Boolean
+    Public Overrides Function DrawPage(Canvas As System.Drawing.Graphics) As Boolean
         Dim hasMoreData As Boolean
 
         If Not DataLoaded Then
@@ -272,7 +272,7 @@ Public Class R90CTB0042C_Explotacio
 
     End Function
 
-    Private Sub PrintHeader(ByVal Canvas As System.Drawing.Graphics)
+    Private Sub PrintHeader(Canvas As System.Drawing.Graphics)
         Dim curX As Integer
         Dim col As Integer
 
@@ -329,7 +329,7 @@ Public Class R90CTB0042C_Explotacio
 
     End Sub
 
-    Private Function FillDetail(ByVal Canvas As Graphics) As Boolean
+    Private Function FillDetail(Canvas As Graphics) As Boolean
         Dim ForceNewPage As Boolean
 
         Do
@@ -358,7 +358,7 @@ Public Class R90CTB0042C_Explotacio
 
     End Function
 
-    Private Function DrawLinBalansSit(ByVal Canvas As System.Drawing.Graphics) As Boolean
+    Private Function DrawLinBalansSit(Canvas As System.Drawing.Graphics) As Boolean
         Dim curX As Integer
         Dim col As Integer
         Dim Titol As String
@@ -386,9 +386,9 @@ Public Class R90CTB0042C_Explotacio
             curX += ColumnWidth(col) + ColumnGap : col += 1
             DrawString(Canvas, fmtValueToStr(lin("Titol"), 0, True), fntLineB, Brushes.Black, New RectangleF(curX, CurY, ColumnWidth(col), 12), sfNear)
             curX += ColumnWidth(col) + ColumnGap : col += 1
-            DrawString(Canvas, fmtValueToStr(lin("SD_PERIODE"), 0, True), fntLineB, Brushes.Black, New RectangleF(curX, CurY, ColumnWidth(col), 12), sfFar)
+            DrawString(Canvas, fmtValueToStr(lin("SD_PERIODE"), 2, True), fntLineB, Brushes.Black, New RectangleF(curX, CurY, ColumnWidth(col), 12), sfFar)
             curX += ColumnWidth(col) + ColumnGap : col += 1
-            DrawString(Canvas, fmtValueToStr(lin("SDO_FINAL"), 0, True), fntLineB, Brushes.Black, New RectangleF(curX, CurY, ColumnWidth(col), 12), sfFar)
+            DrawString(Canvas, fmtValueToStr(lin("SDO_FINAL"), 2, True), fntLineB, Brushes.Black, New RectangleF(curX, CurY, ColumnWidth(col), 12), sfFar)
 
             If Titol.StartsWith("TOTAL INGRESSOS") Then
                 ForceNewPage = True
@@ -448,7 +448,7 @@ Public Class R90CTB0042C_Explotacio
 
     End Function
 
-    Protected Overrides Sub Print2Excel(ByVal FileName As String)
+    Protected Overrides Sub Print2Excel(FileName As String)
 
     End Sub
 

@@ -5,7 +5,7 @@ Imports csAppData
 
 Public Class C00_gst_sys
 
-  Public Function GetSystemValue(ByVal Item As String) As Object
+  Public Function GetSystemValue(Item As String) As Object
     Dim OleDbComm As New OleDbCommand
     Dim cmd As String
     Dim row As OleDbDataReader

@@ -79,9 +79,11 @@ Public Class R90FAC0002A_Factura
           rpt.pdfShowSaveDialog = False
           rpt.pdfPathAndFileName = String.Empty
           rpt.pdfDirectori = My.Settings.OutputDirPDF
-          rpt.pdfNomFitxer = String.Format("Factura {0}-{1} - {2}.PDF", CInt(tbFacs.Rows(0)("fc_any")), CInt(tbFacs.Rows(0)("fc_Numero")), CNull(tbFacs.Rows(0)("fc_nifcli")).Trim)
+          rpt.pdfNomFitxer =
+              $"Factura {CInt(tbFacs.Rows(0)("fc_any"))}-{CInt(tbFacs.Rows(0)("fc_Numero"))} - { _
+                  CNull(tbFacs.Rows(0)("fc_nifcli")).Trim}.PDF"
 
-        Case TipusEnviamentDocumentEnum.Impressora
+          Case TipusEnviamentDocumentEnum.Impressora
           rpt.Destinacio = csRpt.ReportDestinationEnum.Printer
           rpt.ShowPrintDialog = False
           rpt.SetDefaultPrinter()

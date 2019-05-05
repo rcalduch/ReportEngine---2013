@@ -4,8 +4,8 @@ Imports csUtils
 
 Module StartUp
 
-    <STAThread()>
-    Sub Main(ByVal args() As String)
+    <STAThread>
+    Sub Main(args() As String)
 
         AddHandler Application.ThreadException, AddressOf App_ThreadException
 
@@ -55,7 +55,7 @@ Module StartUp
     End Sub
 
     ' Default Exception Handler
-    Sub App_ThreadException(ByVal sender As Object, ByVal e As System.Threading.ThreadExceptionEventArgs)
+    Sub App_ThreadException(sender As Object, e As System.Threading.ThreadExceptionEventArgs)
 
         MessageBox.Show("La aplicació es tancarà " + e.Exception.Message, "Error greu", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
@@ -111,7 +111,7 @@ Module StartUp
     Public Class FetchXmlParameter
         Private params As New Dictionary(Of String, String)
 
-        Public Sub New(ByVal XmlFileName As String)
+        Public Sub New(XmlFileName As String)
 
             Dim xml As New Xml.XmlDocument
             Dim doc As Xml.XmlElement
@@ -133,7 +133,7 @@ Module StartUp
 
         End Sub
 
-        Public Function GetValue(ByVal ParameterName As String) As String
+        Public Function GetValue(ParameterName As String) As String
             Dim ParamValue As String
 
             Try

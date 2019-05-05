@@ -129,11 +129,11 @@ Public Class R90CTB0042C_Balanç
 
     Private NowPrinting As NowPrintingEnum
 
-    Public Shadows Property CustomID() As String
+    Public Shadows Property CustomID As String
         Get
             Return mCustomID
         End Get
-        Set(ByVal value As String)
+        Set
             mCustomID = value
         End Set
     End Property
@@ -161,32 +161,32 @@ Public Class R90CTB0042C_Balanç
 #Region " Propietats llistat "
 
     Private mDestinacio As ReportDestinationEnum
-    Public Property Destinacio() As csRpt.ReportDestinationEnum
+    Public Property Destinacio As csRpt.ReportDestinationEnum
         Get
             Return mDestinacio
         End Get
-        Set(ByVal value As csRpt.ReportDestinationEnum)
+        Set
             Destination = value
             mDestinacio = value
         End Set
     End Property
 
     Private mCopies As Integer
-    Public Property Copies() As Integer
+    Public Property Copies As Integer
         Get
             Return mCopies
         End Get
-        Set(ByVal value As Integer)
+        Set
             mCopies = value
         End Set
     End Property
 
     Private mFitxerPdf As String
-    Public Property FitxerPdf() As String
+    Public Property FitxerPdf As String
         Get
             Return mFitxerPdf
         End Get
-        Set(ByVal value As String)
+        Set
             mFitxerPdf = value
         End Set
     End Property
@@ -248,7 +248,7 @@ Public Class R90CTB0042C_Balanç
         DrawingTotalsAndExit = False
     End Sub
 
-    Public Overrides Function DrawPage(ByVal Canvas As System.Drawing.Graphics) As Boolean
+    Public Overrides Function DrawPage(Canvas As System.Drawing.Graphics) As Boolean
         Dim hasMoreData As Boolean
 
         If Not DataLoaded Then
@@ -279,7 +279,7 @@ Public Class R90CTB0042C_Balanç
 
     End Function
 
-    Private Sub PrintHeader(ByVal Canvas As System.Drawing.Graphics)
+    Private Sub PrintHeader(Canvas As System.Drawing.Graphics)
         Dim curX As Integer
         Dim col As Integer
         Dim widOT As Integer
@@ -345,7 +345,7 @@ Public Class R90CTB0042C_Balanç
 
     End Sub
 
-    Private Function FillDetail(ByVal Canvas As Graphics) As Boolean
+    Private Function FillDetail(Canvas As Graphics) As Boolean
         Dim ForceNewPage As Boolean
 
         Do
@@ -374,7 +374,7 @@ Public Class R90CTB0042C_Balanç
 
     End Function
 
-    Private Function DrawLinBalansSit(ByVal Canvas As System.Drawing.Graphics) As Boolean
+    Private Function DrawLinBalansSit(Canvas As System.Drawing.Graphics) As Boolean
         Dim curX As Integer
         Dim col As Integer
         Dim ForceNewPage As Boolean
@@ -529,7 +529,7 @@ Public Class R90CTB0042C_Balanç
 
     End Function
 
-    Protected Overrides Sub Print2Excel(ByVal FileName As String)
+    Protected Overrides Sub Print2Excel(FileName As String)
 
     End Sub
 

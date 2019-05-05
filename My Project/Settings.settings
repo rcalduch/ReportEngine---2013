@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="OleDbDirFAC" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">D:\foxpro\A\GST20\LTE\CUSTOM</Value>
+      <Value Profile="(Default)">C:\Data\foxpro\B\IPM\GST</Value>
     </Setting>
     <Setting Name="OleDbDirCTB" Type="System.String" Scope="Application">
       <Value Profile="(Default)">D:\foxpro\A\CTB60\tmp</Value>
@@ -24,7 +24,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="OutputDirPDF" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">D:\CUSTOM\SPOOL\PDF</Value>
+      <Value Profile="(Default)">C:\Data\foxpro\B\IPM\PDF</Value>
     </Setting>
     <Setting Name="mailUserSMTP" Type="System.String" Scope="Application">
       <Value Profile="(Default)" />
@@ -33,10 +33,10 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="PathToMonitor" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">D:\CUSTOM\SPOOL\PTM</Value>
+      <Value Profile="(Default)">C:\Data\foxpro\B\IPM\ptm</Value>
     </Setting>
     <Setting Name="ClientCustom" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">201502</Value>
+      <Value Profile="(Default)">000400</Value>
     </Setting>
     <Setting Name="PersonaQueSaluda" Type="System.String" Scope="Application">
       <Value Profile="(Default)" />

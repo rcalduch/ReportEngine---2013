@@ -13,7 +13,7 @@ Public MustInherit Class csRpt
   ''' </summary>
   ''' <remarks></remarks>
   Public Event GetDataSource()
-  Public Event FilterDatarowOut(ByVal Datarow As IDataReader, ByRef ExcludeRow As Boolean)
+  Public Event FilterDatarowOut(Datarow As IDataReader, ByRef ExcludeRow As Boolean)
 
   ''' <summary>
   ''' Tipus de capçalera: Plain -> Texte; Image -> amb el logo de la empresa.
@@ -243,7 +243,7 @@ Public MustInherit Class csRpt
     Get
       Return mPdfNumberOfJobs
     End Get
-    Set(ByVal value As Integer)
+    Set(value As Integer)
       mPdfNumberOfJobs = value
       pdfMustInitNumberOfJobs = True
     End Set
@@ -272,7 +272,7 @@ Public MustInherit Class csRpt
     Get
       Return PrtSettings.PrinterName
     End Get
-    Set(ByVal value As String)
+    Set(value As String)
       SetPrinter(value)
     End Set
   End Property
@@ -281,7 +281,7 @@ Public MustInherit Class csRpt
     Get
       Return mShowPDFGenerated
     End Get
-    Set(ByVal value As Boolean)
+    Set(value As Boolean)
       mShowPDFGenerated = value
     End Set
   End Property
@@ -296,7 +296,7 @@ Public MustInherit Class csRpt
     Get
       Return mShowPrintDialog
     End Get
-    Set(ByVal value As Boolean)
+    Set(value As Boolean)
       mShowPrintDialog = value
     End Set
   End Property
@@ -305,7 +305,7 @@ Public MustInherit Class csRpt
     Get
       Return mShowMessageError
     End Get
-    Set(ByVal value As Boolean)
+    Set(value As Boolean)
       mShowMessageError = value
     End Set
   End Property
@@ -317,7 +317,7 @@ Public MustInherit Class csRpt
   ''' <value>Clau de destinació de la impressió.</value>
   ''' <remarks></remarks>
   Public WriteOnly Property DestinationStr() As String
-    Set(ByVal value As String)
+    Set(value As String)
       value = Utils.CNull(value, "I")
       Select Case value.ToUpper '.Replace("&", "").ToUpper.Substring(0, 1)
         Case "E-MAIL", "E"
@@ -352,24 +352,24 @@ Public MustInherit Class csRpt
     Get
       Return mLandscape
     End Get
-    Set(ByVal value As Boolean)
+    Set(value As Boolean)
       mLandscape = value
       PrtSettings.DefaultPageSettings.Landscape = value
     End Set
   End Property
 
-  Private Sub pd_BeginPrint(ByVal sender As Object, ByVal e As System.Drawing.Printing.PrintEventArgs) Handles pd.BeginPrint
+  Private Sub pd_BeginPrint(sender As Object, e As System.Drawing.Printing.PrintEventArgs) Handles pd.BeginPrint
     TotalPages = 0
     BeginPrint()
   End Sub
 
-  Private Sub pd_EndPrint(ByVal sender As Object, ByVal e As System.Drawing.Printing.PrintEventArgs) Handles pd.EndPrint
+  Private Sub pd_EndPrint(sender As Object, e As System.Drawing.Printing.PrintEventArgs) Handles pd.EndPrint
     If DataSource IsNot Nothing Then
       DataSource.Close()
     End If
   End Sub
 
-  Private Sub pd_PrintPage(ByVal sender As Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles pd.PrintPage
+  Private Sub pd_PrintPage(sender As Object, e As System.Drawing.Printing.PrintPageEventArgs) Handles pd.PrintPage
 
     If EvaluatingTotalPages Then
       If LoadDataSource Then
@@ -407,7 +407,7 @@ Public MustInherit Class csRpt
   ''' <returns>True si l'usuari ha selecionat una impressora. False en cas contrari</returns>
   ''' <remarks></remarks>
   Private Function GetPrinter() As Boolean
-    Dim ReturnValue As Boolean = False
+    Dim returnValue As Boolean = False
     If Me.Destination = ReportDestinationEnum.eMailAsPDF Or _
       Me.Destination = ReportDestinationEnum.FaxAsPDF Or _
       Me.Destination = ReportDestinationEnum.PDF Or _
@@ -423,11 +423,11 @@ Public MustInherit Class csRpt
       PrtSettings = dlg.PrinterSettings
       ShowPrintDialog = False
       IsPrinterAssigned = True
-      ReturnValue = True
+      returnValue = True
     Else
       Return False
     End If
-    Return ReturnValue
+    Return returnValue
   End Function
 
   ''' <summary>
@@ -436,7 +436,7 @@ Public MustInherit Class csRpt
   ''' <param name="PrinterName">Nom de la impressora sobre la que es vol imprimir el llistat</param>
   ''' <returns>True si s'aplicat correctament el nom de la impressora. False si l'usuari cancela la sel·lecció.</returns>
   ''' <remarks></remarks>
-  Public Function SetPrinter(ByVal PrinterName As String) As Boolean
+  Public Function SetPrinter(PrinterName As String) As Boolean
     If csUtils.Utils.IsEmptyStr(PrinterName) Then
       Return GetPrinter()
     Else
@@ -781,26 +781,26 @@ Public MustInherit Class csRpt
 
   End Function
 
-  Public MustOverride Function DrawPage(ByVal Canvas As System.Drawing.Graphics) As Boolean
+  Public MustOverride Function DrawPage(Canvas As System.Drawing.Graphics) As Boolean
 
   Public MustOverride Sub BeginPrint()
 
-  Protected Overridable Function DrawHeader(ByVal Canvas As System.Drawing.Graphics) As Integer
+  Protected Overridable Function DrawHeader(Canvas As System.Drawing.Graphics) As Integer
 
   End Function
 
-  Protected Overridable Function DrawFooter(ByVal Canvas As System.Drawing.Graphics) As Integer
+  Protected Overridable Function DrawFooter(Canvas As System.Drawing.Graphics) As Integer
 
   End Function
 
-  Protected Overridable Function FilterRowOut(ByVal Row As IDataReader) As Boolean
+  Protected Overridable Function FilterRowOut(Row As IDataReader) As Boolean
     Dim ExcludeRow As Boolean
     ExcludeRow = False
     RaiseEvent FilterDatarowOut(Row, ExcludeRow)
     Return ExcludeRow
   End Function
 
-  Public Function PrintStandardHeader(ByVal Canvas As Graphics) As Integer
+  Public Function PrintStandardHeader(Canvas As Graphics) As Integer
     Dim sf As New StringFormat
     Dim PenThick As New Pen(Color.Black, 2)
     Dim PenThin As New Pen(Color.Black, 1)
@@ -831,7 +831,7 @@ Public MustInherit Class csRpt
     Return Me.CurY
   End Function
 
-  Public Function PrintStandardFooter(ByVal Canvas As Graphics) As Integer
+  Public Function PrintStandardFooter(Canvas As Graphics) As Integer
     Dim PenThick As New Pen(Color.Black, 2)
     Dim PenThin As New Pen(Color.Black, 1)
     Dim FooterFont As New Font("Arial", 6, FontStyle.Regular, GraphicsUnit.Point)
@@ -865,46 +865,46 @@ Public MustInherit Class csRpt
     Return BottomY
   End Function
 
-  Protected MustOverride Sub Print2Excel(ByVal FileName As String)
+  Protected MustOverride Sub Print2Excel(FileName As String)
 
 
 #Region "Primitives"
 
-  Public Sub DrawString(ByVal gr As Graphics, ByVal s As String, ByVal f As Font, ByVal b As Brush, ByVal x As Single, ByVal y As Single)
+  Public Sub DrawString(gr As Graphics, s As String, f As Font, b As Brush, x As Single, y As Single)
     If Not EvaluatingTotalPages Then
       gr.DrawString(s, f, b, x, y)
     End If
   End Sub
 
-  Public Sub DrawString(ByVal gr As Graphics, ByVal s As String, ByVal f As Font, ByVal b As Brush, ByVal x As Single, ByVal y As Single, ByVal sf As StringFormat)
+  Public Sub DrawString(gr As Graphics, s As String, f As Font, b As Brush, x As Single, y As Single, sf As StringFormat)
     If Not EvaluatingTotalPages Then
       gr.DrawString(s, f, b, x, y, sf)
     End If
   End Sub
 
-  Public Sub DrawString(ByVal gr As Graphics, ByVal s As String, ByVal f As Font, ByVal b As Brush, ByVal r As RectangleF, ByVal sf As StringFormat)
+  Public Sub DrawString(gr As Graphics, s As String, f As Font, b As Brush, r As RectangleF, sf As StringFormat)
     If Not EvaluatingTotalPages Then
       gr.DrawString(s, f, b, r, sf)
     End If
   End Sub
 
-  Public Sub DrawLine(ByVal gr As Graphics, ByVal p As Pen, ByVal x1 As Single, ByVal y1 As Single, ByVal x2 As Single, ByVal y2 As Single)
+  Public Sub DrawLine(gr As Graphics, p As Pen, x1 As Single, y1 As Single, x2 As Single, y2 As Single)
     If Not EvaluatingTotalPages Then
       gr.DrawLine(p, x1, y1, x2, y2)
     End If
   End Sub
 
-  Public Sub DrawLine(ByVal gr As Graphics, ByVal x1 As Single, ByVal y1 As Single, ByVal x2 As Single, ByVal y2 As Single, stroke As Single, clr As Color)
+  Public Sub DrawLine(gr As Graphics, x1 As Single, y1 As Single, x2 As Single, y2 As Single, stroke As Single, clr As Color)
     If Not EvaluatingTotalPages Then
       gr.DrawLine(New Pen(clr, stroke), x1, y1, x2, y2)
     End If
   End Sub
 
-  Public Sub DrawDashedLine(ByVal gr As Graphics, _
-    ByVal x As Integer, _
-    ByVal y As Integer, _
-    ByVal width As Integer, _
-    ByVal p As Pen, _
+  Public Sub DrawDashedLine(gr As Graphics, _
+    x As Integer, _
+    y As Integer, _
+    width As Integer, _
+    p As Pen, _
     Optional ByVal length As Integer = 10, _
     Optional ByVal gap As Integer = 2)
 
@@ -919,103 +919,103 @@ Public MustInherit Class csRpt
 
   End Sub
 
-  Public Sub DrawLines(ByVal gr As Graphics, ByVal p As Pen, ByVal points() As Point)
+  Public Sub DrawLines(gr As Graphics, p As Pen, points() As Point)
     If Not EvaluatingTotalPages Then
       gr.DrawLines(p, points)
     End If
   End Sub
 
-  Public Sub DrawLines(ByVal gr As Graphics, ByVal p As Pen, ByVal points() As PointF)
+  Public Sub DrawLines(gr As Graphics, p As Pen, points() As PointF)
     If Not EvaluatingTotalPages Then
       gr.DrawLines(p, points)
     End If
   End Sub
 
-  Public Sub DrawRectangle(ByVal gr As Graphics, ByVal p As Pen, ByVal x As Single, ByVal y As Single, ByVal width As Single, ByVal height As Single)
+  Public Sub DrawRectangle(gr As Graphics, p As Pen, x As Single, y As Single, width As Single, height As Single)
     If Not EvaluatingTotalPages Then
       gr.DrawRectangle(p, x, y, width, height)
     End If
   End Sub
 
-  Public Sub DrawImage(ByVal gr As Graphics, ByVal i As Image, ByVal desRect As Rectangle, ByVal srcRec As Rectangle, ByVal u As GraphicsUnit)
+  Public Sub DrawImage(gr As Graphics, i As Image, desRect As Rectangle, srcRec As Rectangle, u As GraphicsUnit)
     If Not EvaluatingTotalPages Then
       gr.DrawImage(i, desRect, srcRec, u)
     End If
   End Sub
 
-  Public Sub DrawImage(ByVal gr As Graphics, ByVal i As Image, ByVal desRect As RectangleF, ByVal srcRec As RectangleF, ByVal u As GraphicsUnit)
+  Public Sub DrawImage(gr As Graphics, i As Image, desRect As RectangleF, srcRec As RectangleF, u As GraphicsUnit)
     If Not EvaluatingTotalPages Then
       gr.DrawImage(i, desRect, srcRec, u)
     End If
   End Sub
 
-  Public Sub DrawImage(ByVal gr As Graphics, ByVal i As Image, ByVal x As Integer, ByVal y As Integer)
+  Public Sub DrawImage(gr As Graphics, i As Image, x As Integer, y As Integer)
     If Not EvaluatingTotalPages Then
       gr.DrawImage(i, x, y)
     End If
   End Sub
 
-  Public Sub DrawImage(ByVal gr As Graphics, ByVal i As Image, ByVal x As Integer, ByVal y As Integer, ByVal width As Integer, ByVal height As Integer)
+  Public Sub DrawImage(gr As Graphics, i As Image, x As Integer, y As Integer, width As Integer, height As Integer)
     If Not EvaluatingTotalPages Then
       gr.DrawImage(i, x, y, width, height)
     End If
   End Sub
 
-  Public Sub FillRectangle(ByVal gr As Graphics, ByVal b As Brush, ByVal x As Single, ByVal y As Single, ByVal width As Single, ByVal height As Single)
+  Public Sub FillRectangle(gr As Graphics, b As Brush, x As Single, y As Single, width As Single, height As Single)
     If Not EvaluatingTotalPages Then
       gr.FillRectangle(b, x, y, width, height)
     End If
   End Sub
 
-  Public Sub DrawRoundedRectangle(ByVal objGraphics As System.Drawing.Graphics, ByVal x As Integer, ByVal y As Integer, ByVal Width As Integer, ByVal Height As Integer, ByVal Diameter As Integer, ByVal Stroke As Integer)
+  Public Sub DrawRoundedRectangle(objGraphics As System.Drawing.Graphics, x As Integer, y As Integer, Width As Integer, Height As Integer, Diameter As Integer, Stroke As Integer)
     If Not EvaluatingTotalPages Then
       Utils.DrawRoundedRectangle(objGraphics, x, y, Width, Height, Diameter, Stroke)
     End If
   End Sub
 
-  Public Sub DrawRoundedRectangle(ByVal objGraphics As System.Drawing.Graphics, ByVal x As Integer, ByVal y As Integer, ByVal Width As Integer, ByVal Height As Integer, ByVal Diameter As Integer, ByVal Stroke As Integer, PenColor As Color)
+  Public Sub DrawRoundedRectangle(objGraphics As System.Drawing.Graphics, x As Integer, y As Integer, Width As Integer, Height As Integer, Diameter As Integer, Stroke As Integer, PenColor As Color)
     If Not EvaluatingTotalPages Then
       Utils.DrawRoundedRectangle(objGraphics, x, y, Width, Height, Diameter, Stroke, PenColor)
     End If
   End Sub
 
-  Public Sub FillRoundedRectangle(ByVal objGraphics As System.Drawing.Graphics, ByVal brush As System.Drawing.Brush, ByVal x As Integer, ByVal y As Integer, ByVal Width As Integer, ByVal Height As Integer, ByVal Diameter As Integer)
+  Public Sub FillRoundedRectangle(objGraphics As System.Drawing.Graphics, brush As System.Drawing.Brush, x As Integer, y As Integer, Width As Integer, Height As Integer, Diameter As Integer)
     If Not EvaluatingTotalPages Then
       Utils.FillRoundedRectangle(objGraphics, brush, x, y, Width, Height, Diameter)
     End If
   End Sub
 
-  Public Sub FillTopRoundedRectangle(ByVal objGraphics As System.Drawing.Graphics, ByVal brush As System.Drawing.Brush, ByVal x As Integer, ByVal y As Integer, ByVal Width As Integer, ByVal Height As Integer, ByVal Diameter As Integer)
+  Public Sub FillTopRoundedRectangle(objGraphics As System.Drawing.Graphics, brush As System.Drawing.Brush, x As Integer, y As Integer, Width As Integer, Height As Integer, Diameter As Integer)
     If Not EvaluatingTotalPages Then
       Utils.FillTopRoundedRectangle(objGraphics, brush, x, y, Width, Height, Diameter)
     End If
   End Sub
 
-  Public Sub DrawRotateText(ByVal objGraphics As System.Drawing.Graphics, ByVal x As Integer, ByVal y As Integer, ByVal Angle As Integer, ByVal Text As String, ByVal Fnt As System.Drawing.Font, ByVal brsh As System.Drawing.Brush)
+  Public Sub DrawRotateText(objGraphics As System.Drawing.Graphics, x As Integer, y As Integer, Angle As Integer, Text As String, Fnt As System.Drawing.Font, brsh As System.Drawing.Brush)
     If Not EvaluatingTotalPages Then
       Utils.DrawRotateText(objGraphics, x, y, Angle, Text, Fnt, brsh)
     End If
   End Sub
 
-  Public Sub DrawRotateImage(ByVal gr As System.Drawing.Graphics, ByVal bmp As System.Drawing.Bitmap, ByVal x As Integer, ByVal y As Integer, ByVal angle As Single)
+  Public Sub DrawRotateImage(gr As System.Drawing.Graphics, bmp As System.Drawing.Bitmap, x As Integer, y As Integer, angle As Single)
     If Not EvaluatingTotalPages Then
       Utils.DrawRotateImage(gr, bmp, x, y, angle)
     End If
   End Sub
 
-  Public Sub DrawRotateImage(ByVal objGraphics As System.Drawing.Graphics, ByVal Image As System.Drawing.Image, ByVal Angle As Integer, ByVal x As Integer, ByVal y As Integer, ByVal width As Integer, ByVal height As Integer)
+  Public Sub DrawRotateImage(objGraphics As System.Drawing.Graphics, Image As System.Drawing.Image, Angle As Integer, x As Integer, y As Integer, width As Integer, height As Integer)
     If Not EvaluatingTotalPages Then
       Utils.DrawRotateImage(objGraphics, Image, Angle, x, y, width, height)
     End If
   End Sub
 
-  Public Sub DrawFittedText(ByVal objGraphics As System.Drawing.Graphics, ByVal x As Integer, ByVal y As Integer, ByVal width As Integer, ByVal height As Integer, ByVal Text As String, ByVal Fnt As System.Drawing.Font, ByVal foreBrush As System.Drawing.Brush, ByVal backBrush As System.Drawing.Brush, ByVal Stroke As Integer, ByVal Diameter As Integer)
+  Public Sub DrawFittedText(objGraphics As System.Drawing.Graphics, x As Integer, y As Integer, width As Integer, height As Integer, Text As String, Fnt As System.Drawing.Font, foreBrush As System.Drawing.Brush, backBrush As System.Drawing.Brush, Stroke As Integer, Diameter As Integer)
     If Not EvaluatingTotalPages Then
       Utils.DrawFittedText(objGraphics, x, y, width, height, Text, Fnt, foreBrush, backBrush, Stroke, Diameter)
     End If
   End Sub
 
-  Public Sub DrawBoxedText(ByVal Canvas As Graphics, ByVal x As Integer, ByVal y As Integer, ByVal width As Integer, ByVal height As Integer, ByVal s As String, ByVal fnt As Font, ByVal Aligment As StringFormat, ByVal BackColor As Brush, ByVal ForeColor As Brush)
+  Public Sub DrawBoxedText(Canvas As Graphics, x As Integer, y As Integer, width As Integer, height As Integer, s As String, fnt As Font, Aligment As StringFormat, BackColor As Brush, ForeColor As Brush)
     If Not EvaluatingTotalPages Then
       FillRectangle(Canvas, BackColor, x, y, width, height)
       DrawRectangle(Canvas, Pens.Black, x, y, width, height)
@@ -1033,11 +1033,11 @@ Public Class csPortadaFax
 
   Public fmFaxPaginesDocument As Integer
 
-  Private Sub pdPortadaFax_BeginPrint(ByVal sender As Object, ByVal e As System.Drawing.Printing.PrintEventArgs) Handles pdPortadaFax.BeginPrint
+  Private Sub pdPortadaFax_BeginPrint(sender As Object, e As System.Drawing.Printing.PrintEventArgs) Handles pdPortadaFax.BeginPrint
 
   End Sub
 
-  Private Sub pdPortadaFax_PrintPage(ByVal sender As Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles pdPortadaFax.PrintPage
+  Private Sub pdPortadaFax_PrintPage(sender As Object, e As System.Drawing.Printing.PrintPageEventArgs) Handles pdPortadaFax.PrintPage
 
     Dim pageHeight As Integer
     Dim pageWidth As Integer
@@ -1181,11 +1181,11 @@ Public Class csPortadaFax
 
   End Sub
 
-  Public Overrides Function DrawPage(ByVal Canvas As System.Drawing.Graphics) As Boolean
+  Public Overrides Function DrawPage(Canvas As System.Drawing.Graphics) As Boolean
 
   End Function
 
-  Protected Overrides Sub Print2Excel(ByVal FileName As String)
+  Protected Overrides Sub Print2Excel(FileName As String)
 
   End Sub
 
@@ -1195,9 +1195,9 @@ End Class
 Public Class csTabularRpt
   Inherits csRpt
 
-  Public Event GetTotalColumn(ByVal ColumnFieldName As String, ByRef TotalValue As Decimal)
-  Public Event GetSubTotalColumn(ByVal ColumnFieldName As String, ByRef TotalValue As Decimal)
-  Public Event Export2Excel(ByVal FileName As String, ByRef Handled As Boolean)
+  Public Event GetTotalColumn(ColumnFieldName As String, ByRef TotalValue As Decimal)
+  Public Event GetSubTotalColumn(ColumnFieldName As String, ByRef TotalValue As Decimal)
+  Public Event Export2Excel(FileName As String, ByRef Handled As Boolean)
 
   Public Enum TotalColumnEnum
     None
@@ -1357,7 +1357,7 @@ Public Class csTabularRpt
       Get
         Return mFieldFormat
       End Get
-      Set(ByVal value As String)
+      Set(value As String)
         If String.IsNullOrEmpty(value) Then
           mFieldFormat = "{0}"
         Else
@@ -1374,7 +1374,7 @@ Public Class csTabularRpt
     ''' <param name="FormatValue">Format a aplicar</param>
     ''' <param name="FieldFormating">Tipus de format a que correspon el FormatValue</param>
     ''' <remarks></remarks>
-    Public Sub AddFormField(ByVal Caption As String, ByVal FieldName As String, ByVal FormatValue As String, ByVal FieldFormating As FormatingEnum)
+    Public Sub AddFormField(Caption As String, FieldName As String, FormatValue As String, FieldFormating As FormatingEnum)
       Dim ff As New FormFieldInfo
       ff.Caption = Caption
       ff.FieldName = FieldName
@@ -1393,7 +1393,7 @@ Public Class csTabularRpt
     ''' <param name="FieldName">Nom del camp sobre el que s'agrupa.</param>
     ''' <param name="FieldFormat">Format que s'aplica al camp per la agrupació.</param>
     ''' <remarks></remarks>
-    Public Sub AddFormField(ByVal Caption As String, ByVal FieldName As String, ByVal FieldFormat As String)
+    Public Sub AddFormField(Caption As String, FieldName As String, FieldFormat As String)
       AddFormField(Caption, FieldName, FieldFormat, FormatingEnum.StringFormat)
     End Sub
 
@@ -1403,7 +1403,7 @@ Public Class csTabularRpt
     ''' <param name="Format">Format que s'aplica.</param>
     ''' <param name="Formating">Tipus de format al que correspon el Fromat</param>
     ''' <remarks></remarks>
-    Public Sub SetFormat(ByVal Format As String, ByVal Formating As FormatingEnum)
+    Public Sub SetFormat(Format As String, Formating As FormatingEnum)
       Me.FieldFormating = Formating
       If Formating = FormatingEnum.StringFormat Then
         ' Format de .Net
@@ -1453,7 +1453,7 @@ Public Class csTabularRpt
     ''' <param name="FormatValue">Format a aplicar</param>
     ''' <param name="FieldFormating">Tipus de format a que correspon el FormatValue</param>
     ''' <remarks></remarks>
-    Public Function AddField(ByVal Caption As String, ByVal CaptionWidth As Integer, ByVal FieldName As String, ByVal FieldWidth As Integer, ByVal FormatValue As String, ByVal FieldFormating As FormatingEnum, ByVal Alignment As StringAlignment) As FormLayoutFieldInfo
+    Public Function AddField(Caption As String, CaptionWidth As Integer, FieldName As String, FieldWidth As Integer, FormatValue As String, FieldFormating As FormatingEnum, Alignment As StringAlignment) As FormLayoutFieldInfo
       Dim ff As New FormLayoutFieldInfo
       ff.Caption = Caption
       ff.FieldName = FieldName
@@ -1593,7 +1593,7 @@ Public Class csTabularRpt
       Get
         Return mFieldFormat
       End Get
-      Set(ByVal value As String)
+      Set(value As String)
         If String.IsNullOrEmpty(value) Then
           mFieldFormat = "{0}"
         Else
@@ -1608,7 +1608,7 @@ Public Class csTabularRpt
     ''' <param name="Format">Format que s'aplica.</param>
     ''' <param name="Formating">Tipus de format al que correspon el Fromat</param>
     ''' <remarks></remarks>
-    Public Sub SetFormat(ByVal Format As String, ByVal Formating As FormatingEnum)
+    Public Sub SetFormat(Format As String, Formating As FormatingEnum)
       Me.FieldFormating = Formating
       If Formating = FormatingEnum.StringFormat Then
         ' Format de .Net
@@ -1703,7 +1703,7 @@ Public Class csTabularRpt
     ''' <param name="dr">Datareader sobre el que comprobar si hi ha un canvi d'agruapció</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function IsBreak(ByVal dr As IDataReader) As Boolean
+    Public Function IsBreak(dr As IDataReader) As Boolean
       Return (Me.LastValue <> String.Format("{0}", dr(FieldData)))
     End Function
 
@@ -1712,12 +1712,12 @@ Public Class csTabularRpt
     ''' </summary>
     ''' <param name="Value">Nou valor de la agrupació</param>
     ''' <remarks></remarks>
-    Public Sub Init(ByVal Value As String)
+    Public Sub Init(Value As String)
       Me.LastValue = Value
       Me.LastDescription = String.Empty
     End Sub
 
-    Public Sub Init(ByVal Value As String, ByVal Description As String)
+    Public Sub Init(Value As String, Description As String)
       Me.LastValue = Value
       Me.LastDescription = Description
     End Sub
@@ -1737,7 +1737,7 @@ Public Class csTabularRpt
     ''' </summary>
     ''' <param name="dr">DataReader que conte els valors dels camp a totalitzar.</param>
     ''' <remarks></remarks>
-    Public Sub UpdateTotals(ByVal dr As IDataReader)
+    Public Sub UpdateTotals(dr As IDataReader)
       For Each t As TotalInfo In Totals
         Select Case t.Col.TotalColumn
           Case TotalColumnEnum.Count
@@ -1841,7 +1841,7 @@ Public Class csTabularRpt
       Get
         Return mFieldFormat
       End Get
-      Set(ByVal value As String)
+      Set(value As String)
         If String.IsNullOrEmpty(value) Then
           mFieldFormat = "{0}"
         Else
@@ -2120,7 +2120,7 @@ Public Class csTabularRpt
   ''' <param name="Aligment">Alineació a aplicar a la columna</param>
   ''' <returns></returns>
   ''' <remarks></remarks>
-  Public Function AddColumn(ByVal Caption As String, ByVal Width As Integer, ByVal FieldName As String, ByVal Aligment As StringAlignment) As ColumnInfo
+  Public Function AddColumn(Caption As String, Width As Integer, FieldName As String, Aligment As StringAlignment) As ColumnInfo
     Dim Column As New ColumnInfo
     With Column
       .Caption = Caption
@@ -2142,7 +2142,7 @@ Public Class csTabularRpt
     Return Column
   End Function
 
-  Public Function AddColumn(ByVal Width As Integer, ByVal Aligment As StringAlignment) As ColumnInfo
+  Public Function AddColumn(Width As Integer, Aligment As StringAlignment) As ColumnInfo
     Return AddColumn("", Width, "", Aligment)
   End Function
 
@@ -2157,7 +2157,7 @@ Public Class csTabularRpt
     Return row
   End Function
 
-  Private Function IndexOfColumn(ByVal ColumnField As String) As Integer
+  Private Function IndexOfColumn(ColumnField As String) As Integer
     Dim Index As Integer = 0
     For Each c As ColumnInfo In ColumnsReport
       If c.FieldName.ToUpper = ColumnField.ToUpper Then
@@ -2179,7 +2179,7 @@ Public Class csTabularRpt
   ''' <param name="FieldData">Nom del camp sobre el que es fa la agrupació</param>
   ''' <param name="FieldFormat">Format (.NET) a aplicar. </param>
   ''' <remarks></remarks>
-  Public Sub AddGroup(ByVal HeaderCaption As String, ByVal FooterCaption As String, ByVal FieldData As String, ByVal FieldFormat As String)
+  Public Sub AddGroup(HeaderCaption As String, FooterCaption As String, FieldData As String, FieldFormat As String)
     Dim Group As New GroupInfo
     With Group
 
@@ -2200,7 +2200,7 @@ Public Class csTabularRpt
     End With
   End Sub
 
-  Public Sub AddGroup(ByVal HeaderCaption As String, ByVal FooterCaption As String, ByVal FieldData As String, ByVal FieldFormat As String, ByVal FieldDescription As String)
+  Public Sub AddGroup(HeaderCaption As String, FooterCaption As String, FieldData As String, FieldFormat As String, FieldDescription As String)
     Dim Group As New GroupInfo
     With Group
 
@@ -2234,7 +2234,7 @@ Public Class csTabularRpt
   ''' <param name="SpaceBeforeCaption">Espai en 1/100" anabs de imprimir la capçalera. S'afegeig sempre encara que no s'imprimeixi el grup </param>
   ''' <param name="SpaceAfterFooter">Espai en 1/100" despres de imprimir el peu del grup. S'afegeig sempre encara que no s'imprimeixi el grup</param>
   ''' <remarks></remarks>
-  Public Sub AddGroup(ByVal HeaderCaption As String, ByVal FooterCaption As String, ByVal FieldData As String, ByVal FieldFormat As String, ByVal PrintHeaderCaption As Boolean, ByVal PrintFooterCaption As Boolean, ByVal SpaceBeforeCaption As Integer, ByVal SpaceAfterFooter As Integer)
+  Public Sub AddGroup(HeaderCaption As String, FooterCaption As String, FieldData As String, FieldFormat As String, PrintHeaderCaption As Boolean, PrintFooterCaption As Boolean, SpaceBeforeCaption As Integer, SpaceAfterFooter As Integer)
     Dim Group As New GroupInfo
 
     With Group
@@ -2256,7 +2256,7 @@ Public Class csTabularRpt
     End With
   End Sub
 
-  Public Sub AddGroup(ByVal HeaderCaption As String, ByVal FooterCaption As String, ByVal FieldData As String, ByVal FieldFormat As String, ByVal FieldDescription As String, ByVal PrintHeaderCaption As Boolean, ByVal PrintFooterCaption As Boolean, ByVal SpaceBeforeCaption As Integer, ByVal SpaceAfterFooter As Integer)
+  Public Sub AddGroup(HeaderCaption As String, FooterCaption As String, FieldData As String, FieldFormat As String, FieldDescription As String, PrintHeaderCaption As Boolean, PrintFooterCaption As Boolean, SpaceBeforeCaption As Integer, SpaceAfterFooter As Integer)
     Dim Group As New GroupInfo
 
     With Group
@@ -2285,7 +2285,7 @@ Public Class csTabularRpt
   ''' <param name="Caption">Titol del vaolr filtrat.</param>
   ''' <param name="Value">Valor aplicat al filtre.</param>
   ''' <remarks></remarks>
-  Public Sub AddCriteria(ByVal Caption As String, ByVal Value As String)
+  Public Sub AddCriteria(Caption As String, Value As String)
     Dim c As New CriteriaInfo
     c.Caption = Caption
     c.Value = Value
@@ -2301,7 +2301,7 @@ Public Class csTabularRpt
   ''' <param name="Aligment">Alineació a aplicar.</param>
   ''' <param name="Underlined">Subratllat.</param>
   ''' <remarks></remarks>
-  Public Sub AddGroupCaption(ByVal FromColumn As Integer, ByVal ToColumn As Integer, ByVal Caption As String, ByVal Aligment As StringAlignment, ByVal Underlined As Boolean)
+  Public Sub AddGroupCaption(FromColumn As Integer, ToColumn As Integer, Caption As String, Aligment As StringAlignment, Underlined As Boolean)
     Dim gc As New GroupCaptionInfo
     gc.FromColumn = FromColumn
     gc.ToColumn = ToColumn
@@ -2316,7 +2316,7 @@ Public Class csTabularRpt
   ''' </summary>
   ''' <param name="Value">True si es vol paper pijama.</param>
   ''' <remarks></remarks>
-  Public Sub SetPaperPijama(ByVal Value As Boolean)
+  Public Sub SetPaperPijama(Value As Boolean)
     Me.PaperPijama = Value
   End Sub
 
@@ -2326,7 +2326,7 @@ Public Class csTabularRpt
   ''' <param name="ResetOnNewPage">Reinicialitza el contador de paper pijama al canviar de pàgina.</param>
   ''' <param name="ResetOnNewGroup">Reinicialitza el contador de paper pijama al canviar de grup.</param>
   ''' <remarks></remarks>
-  Public Sub SetPaperPijama(ByVal ResetOnNewPage As Boolean, ByVal ResetOnNewGroup As Boolean)
+  Public Sub SetPaperPijama(ResetOnNewPage As Boolean, ResetOnNewGroup As Boolean)
     Me.PaperPijama = True
     Me.PijamaResetOnNewGroup = ResetOnNewGroup
     Me.PijamaResetOnNewPage = ResetOnNewPage
@@ -2339,7 +2339,7 @@ Public Class csTabularRpt
   ''' <param name="ResetOnNewGroup">Reinicialitza el contador de paper pijama al canviar de grup.</param>
   ''' <param name="PijamaPeriode">Indica cada cuantes linies es dibuija la linea ombrejada.</param>
   ''' <remarks></remarks>
-  Public Sub SetPaperPijama(ByVal ResetOnNewPage As Boolean, ByVal ResetOnNewGroup As Boolean, ByVal PijamaPeriode As Integer)
+  Public Sub SetPaperPijama(ResetOnNewPage As Boolean, ResetOnNewGroup As Boolean, PijamaPeriode As Integer)
     Me.PaperPijama = True
     Me.PijamaResetOnNewGroup = ResetOnNewGroup
     Me.PijamaResetOnNewPage = ResetOnNewPage
@@ -2358,7 +2358,7 @@ Public Class csTabularRpt
     Next
   End Sub
 
-  Overridable Sub DrawPageHeader(ByVal Canvas As Graphics)
+  Overridable Sub DrawPageHeader(Canvas As Graphics)
     Dim sf As New StringFormat
 
     sf.Alignment = StringAlignment.Far
@@ -2377,7 +2377,7 @@ Public Class csTabularRpt
 
   End Sub
 
-  Overridable Sub DrawPageFooter(ByVal Canvas As Graphics)
+  Overridable Sub DrawPageFooter(Canvas As Graphics)
     Dim y As Integer
     Dim sf As New StringFormat
     y = CInt(PageHeight - FooterFont.GetHeight(Canvas)) - 2
@@ -2397,7 +2397,7 @@ Public Class csTabularRpt
 
   End Sub
 
-  Overridable Sub DrawCriteria(ByVal Canvas As Graphics)
+  Overridable Sub DrawCriteria(Canvas As Graphics)
     If Criteria.Count = 0 Then
       Return
     End If
@@ -2429,7 +2429,7 @@ Public Class csTabularRpt
 
   End Sub
 
-  Overridable Function DrawGroupHeader(ByVal Canvas As System.Drawing.Graphics, ByVal group As GroupInfo) As Boolean
+  Overridable Function DrawGroupHeader(Canvas As System.Drawing.Graphics, group As GroupInfo) As Boolean
     '
     ' Calcular la alçada del text a imprimir
     Dim alsadaText, alsadaGrup As Integer
@@ -2469,7 +2469,7 @@ Public Class csTabularRpt
 
   End Function
 
-  Overridable Function DrawGroupFooter(ByVal Canvas As Graphics, ByVal gf As GroupInfo) As Boolean
+  Overridable Function DrawGroupFooter(Canvas As Graphics, gf As GroupInfo) As Boolean
     Dim alsadaText, alsadaGrup As Integer
     Dim totalValue As Decimal
 
@@ -2553,7 +2553,7 @@ Public Class csTabularRpt
 
   End Function
 
-  Overridable Function DrawSummary(ByVal Canvas As Graphics) As Boolean
+  Overridable Function DrawSummary(Canvas As Graphics) As Boolean
     Dim alsadaSummary As Integer
     Dim alsadaText As Integer
     Dim totalValue As Decimal
@@ -2613,7 +2613,7 @@ Public Class csTabularRpt
 
   End Function
 
-  Private Sub DrawColumnCaptions(ByVal Canvas As Graphics)
+  Private Sub DrawColumnCaptions(Canvas As Graphics)
 
     Dim sf As New StringFormat
     Dim rh As Integer = CInt(RowFont.GetHeight(Canvas))
@@ -2680,7 +2680,7 @@ Public Class csTabularRpt
 
   End Sub
 
-  Private Function DrawColumn(ByVal Canvas As Graphics, ByVal col As ColumnInfo, ByVal Value As String) As Integer
+  Private Function DrawColumn(Canvas As Graphics, col As ColumnInfo, Value As String) As Integer
     Dim height As Integer = CInt(RowFont.GetHeight(Canvas))
     Dim rowHeight As Integer = height
 
@@ -2900,7 +2900,7 @@ Public Class csTabularRpt
 
   End Function
 
-  Private Function DrawColumnLeft(ByVal Canvas As Graphics, ByVal col As ColumnInfo) As Integer
+  Private Function DrawColumnLeft(Canvas As Graphics, col As ColumnInfo) As Integer
     Dim height As Integer = CInt(RowFont.GetHeight(Canvas))
     Dim rowHeight As Integer = height
 
@@ -2937,7 +2937,7 @@ Public Class csTabularRpt
 
   End Function
 
-  Overridable Sub DrawRow(ByVal Canvas As Graphics)
+  Overridable Sub DrawRow(Canvas As Graphics)
     Dim rowHeight, maxRowHeight As Integer
     Dim Value As String
 
@@ -3000,7 +3000,7 @@ Public Class csTabularRpt
 
   End Sub
 
-  Private Sub DrawRowLeft(ByVal Canvas As Graphics)
+  Private Sub DrawRowLeft(Canvas As Graphics)
     Dim rowHeight, maxRowHeight As Integer
     Dim Value As String
 
@@ -3021,7 +3021,7 @@ Public Class csTabularRpt
 
   End Sub
 
-  Public Function TestGroupBreak(ByVal Canvas As Graphics) As Boolean
+  Public Function TestGroupBreak(Canvas As Graphics) As Boolean
 
     If GroupsReport.Count = 0 Then
       Return True
@@ -3072,7 +3072,7 @@ Public Class csTabularRpt
 
   End Function
 
-  Private Function TestColumnsMultiField(ByVal Canvas As System.Drawing.Graphics) As Boolean
+  Private Function TestColumnsMultiField(Canvas As System.Drawing.Graphics) As Boolean
     Dim height As Integer = CInt(RowFont.GetHeight(Canvas))
     For Each c As ColumnInfo In Me.ColumnsReport
       If c.FormFields IsNot Nothing Then
@@ -3084,7 +3084,7 @@ Public Class csTabularRpt
     Return True
   End Function
 
-  Protected Sub InitLayout(ByVal Canvas As System.Drawing.Graphics)
+  Protected Sub InitLayout(Canvas As System.Drawing.Graphics)
 
     If LayoutInitialized Then
       Return
@@ -3155,7 +3155,7 @@ Public Class csTabularRpt
   ''' <param name="Canvas">Objecte graphcs sobre el que es dibuixa la pàgina.</param>
   ''' <returns></returns>
   ''' <remarks></remarks>
-  Public Overrides Function DrawPage(ByVal Canvas As System.Drawing.Graphics) As Boolean
+  Public Overrides Function DrawPage(Canvas As System.Drawing.Graphics) As Boolean
 
     If FirstPassReport Then
 
@@ -3283,7 +3283,7 @@ Public Class csTabularRpt
 
   End Function
 
-  Private Sub DrawLineRow(ByVal Canvas As System.Drawing.Graphics)
+  Private Sub DrawLineRow(Canvas As System.Drawing.Graphics)
     If DrawLineBetweenRows Then
       If CurY + 2 >= BottomY Then
         ' si esta a final de pàgina ja no cal dibuixar la línea
@@ -3319,7 +3319,7 @@ Public Class csTabularRpt
     MyBase.Finalize()
   End Sub
 
-  Public Function GetSubTotalValue(ByVal ColumnFieldName As String) As Decimal
+  Public Function GetSubTotalValue(ColumnFieldName As String) As Decimal
     Dim Value As Decimal
     For Each t As TotalInfo In GroupsReport(SubGroupLevel).Totals
       If t.Col.FieldName.ToLower = ColumnFieldName.ToLower Then
@@ -3331,7 +3331,7 @@ Public Class csTabularRpt
 
   End Function
 
-  Public Function GetTotalValue(ByVal ColumnFieldName As String) As Decimal
+  Public Function GetTotalValue(ColumnFieldName As String) As Decimal
     Dim Value As Decimal
     For Each t As TotalInfo In Me.Totals.Totals
       If t.Col.FieldName.ToLower = ColumnFieldName.ToLower Then
@@ -3342,7 +3342,7 @@ Public Class csTabularRpt
     Return Value
   End Function
 
-  Protected Overrides Sub Print2Excel(ByVal FileName As String)
+  Protected Overrides Sub Print2Excel(FileName As String)
     Dim Handled As Boolean
     Handled = False
     RaiseEvent Export2Excel(FileName, Handled)
@@ -3351,7 +3351,7 @@ Public Class csTabularRpt
     End If
   End Sub
 
-  Public Sub DefaultPrint2Excel(ByVal FileName As String)
+  Public Sub DefaultPrint2Excel(FileName As String)
     Dim xls As New C1.C1Excel.C1XLBook()
     Dim sheet As C1.C1Excel.XLSheet = xls.Sheets("Sheet1")
     Dim colCount As Integer
@@ -3469,7 +3469,7 @@ Public Class csFormLayoutRpt
 
     Public FormFields As System.Collections.Generic.List(Of FormLayoutFieldInfo)
 
-    Public Function AddField(ByVal Caption As String, ByVal CaptionWidth As Integer, ByVal FieldName As String, ByVal FieldWidth As Integer, ByVal FormatValue As String, ByVal FieldFormating As FormatingEnum, ByVal Alignment As StringAlignment) As FormLayoutFieldInfo
+    Public Function AddField(Caption As String, CaptionWidth As Integer, FieldName As String, FieldWidth As Integer, FormatValue As String, FieldFormating As FormatingEnum, Alignment As StringAlignment) As FormLayoutFieldInfo
 
       Dim ff As New FormLayoutFieldInfo
       ff.Caption = Caption
@@ -3620,7 +3620,7 @@ Public Class csFormLayoutRpt
       Get
         Return mFieldFormat
       End Get
-      Set(ByVal value As String)
+      Set(value As String)
         If String.IsNullOrEmpty(value) Then
           mFieldFormat = "{0}"
         Else
@@ -3635,7 +3635,7 @@ Public Class csFormLayoutRpt
     ''' <param name="Format">Format que s'aplica.</param>
     ''' <param name="Formating">Tipus de format al que correspon el Fromat</param>
     ''' <remarks></remarks>
-    Public Sub SetFormat(ByVal Format As String, ByVal Formating As FormatingEnum)
+    Public Sub SetFormat(Format As String, Formating As FormatingEnum)
       Me.FieldFormating = Formating
       If Formating = FormatingEnum.StringFormat Then
         ' Format de .Net
@@ -3743,7 +3743,7 @@ Public Class csFormLayoutRpt
     ''' <param name="dr">Datareader sobre el que comprobar si hi ha un canvi d'agruapció</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function IsBreak(ByVal dr As IDataReader) As Boolean
+    Public Function IsBreak(dr As IDataReader) As Boolean
       Return (Me.LastValue <> String.Format("{0}", dr(FieldData)))
     End Function
 
@@ -3752,7 +3752,7 @@ Public Class csFormLayoutRpt
     ''' </summary>
     ''' <param name="Value">Nou valor de la agrupació</param>
     ''' <remarks></remarks>
-    Public Sub Init(ByVal Value As String)
+    Public Sub Init(Value As String)
       Me.LastValue = Value
       Me.LastDescription = String.Empty
     End Sub
@@ -3762,7 +3762,7 @@ Public Class csFormLayoutRpt
     ''' </summary>
     ''' <param name="Value">Nou valor de la agrupació</param>
     ''' <remarks></remarks>
-    Public Sub Init(ByVal Value As String, ByVal Description As String)
+    Public Sub Init(Value As String, Description As String)
       Me.LastValue = Value
       Me.LastDescription = Description
     End Sub
@@ -4006,7 +4006,7 @@ Public Class csFormLayoutRpt
     Return row
   End Function
 
-  Private Function IndexOfRow(ByVal RowID As Integer) As Integer
+  Private Function IndexOfRow(RowID As Integer) As Integer
     Dim Index As Integer = 0
     For Each r As FormLayoutRowInfo In Me.FormLayoutRows
       If r.RowID = RowID Then
@@ -4028,7 +4028,7 @@ Public Class csFormLayoutRpt
   ''' <param name="FieldData">Nom del camp sobre el que es fa la agrupació</param>
   ''' <param name="FieldFormat">Format (.NET) a aplicar. </param>
   ''' <remarks></remarks>
-  Public Sub AddGroup(ByVal HeaderCaption As String, ByVal FooterCaption As String, ByVal FieldData As String, ByVal FieldFormat As String)
+  Public Sub AddGroup(HeaderCaption As String, FooterCaption As String, FieldData As String, FieldFormat As String)
     Dim Group As New GroupInfo
     With Group
 
@@ -4061,7 +4061,7 @@ Public Class csFormLayoutRpt
   ''' <param name="SpaceBeforeCaption">Espai en 1/100" anabs de imprimir la capçalera. S'afegeig sempre encara que no s'imprimeixi el grup </param>
   ''' <param name="SpaceAfterFooter">Espai en 1/100" despres de imprimir el peu del grup. S'afegeig sempre encara que no s'imprimeixi el grup</param>
   ''' <remarks></remarks>
-  Public Sub AddGroup(ByVal HeaderCaption As String, ByVal FooterCaption As String, ByVal FieldData As String, ByVal FieldFormat As String, ByVal PrintHeaderCaption As Boolean, ByVal PrintFooterCaption As Boolean, ByVal SpaceBeforeCaption As Integer, ByVal SpaceAfterFooter As Integer)
+  Public Sub AddGroup(HeaderCaption As String, FooterCaption As String, FieldData As String, FieldFormat As String, PrintHeaderCaption As Boolean, PrintFooterCaption As Boolean, SpaceBeforeCaption As Integer, SpaceAfterFooter As Integer)
     Dim Group As New GroupInfo
 
     With Group
@@ -4089,7 +4089,7 @@ Public Class csFormLayoutRpt
   ''' <param name="Caption">Titol del vaolr filtrat.</param>
   ''' <param name="Value">Valor aplicat al filtre.</param>
   ''' <remarks></remarks>
-  Public Sub AddCriteria(ByVal Caption As String, ByVal Value As String)
+  Public Sub AddCriteria(Caption As String, Value As String)
     Dim c As New CriteriaInfo
     c.Caption = Caption
     c.Value = Value
@@ -4105,7 +4105,7 @@ Public Class csFormLayoutRpt
   ''' <param name="Aligment">Alineació a aplicar.</param>
   ''' <param name="Underlined">Subratllat.</param>
   ''' <remarks></remarks>
-  Public Sub AddGroupCaption(ByVal FromColumn As Integer, ByVal ToColumn As Integer, ByVal Caption As String, ByVal Aligment As StringAlignment, ByVal Underlined As Boolean)
+  Public Sub AddGroupCaption(FromColumn As Integer, ToColumn As Integer, Caption As String, Aligment As StringAlignment, Underlined As Boolean)
     Dim gc As New GroupCaptionInfo
     gc.FromColumn = FromColumn
     gc.ToColumn = ToColumn
@@ -4123,7 +4123,7 @@ Public Class csFormLayoutRpt
     Next
   End Sub
 
-  Private Sub DrawPageHeader(ByVal Canvas As Graphics)
+  Private Sub DrawPageHeader(Canvas As Graphics)
     Dim sf As New StringFormat
 
     sf.Alignment = StringAlignment.Far
@@ -4141,7 +4141,7 @@ Public Class csFormLayoutRpt
 
   End Sub
 
-  Private Sub DrawPageFooter(ByVal Canvas As Graphics)
+  Private Sub DrawPageFooter(Canvas As Graphics)
     Dim y As Integer
     Dim sf As New StringFormat
     y = CInt(PageHeight - FooterFont.GetHeight(Canvas)) - 2
@@ -4161,7 +4161,7 @@ Public Class csFormLayoutRpt
 
   End Sub
 
-  Private Sub DrawCriteria(ByVal Canvas As Graphics)
+  Private Sub DrawCriteria(Canvas As Graphics)
     If Criteria.Count = 0 Then
       Return
     End If
@@ -4194,7 +4194,7 @@ Public Class csFormLayoutRpt
 
   End Sub
 
-  Private Function DrawGroupHeader(ByVal Canvas As System.Drawing.Graphics, ByVal group As GroupInfo) As Boolean
+  Private Function DrawGroupHeader(Canvas As System.Drawing.Graphics, group As GroupInfo) As Boolean
     '
     ' Calcular la alçada del text a imprimir
     Dim alsadaText, alsadaGrup As Integer
@@ -4233,7 +4233,7 @@ Public Class csFormLayoutRpt
 
   End Function
 
-  Private Function DrawField(ByVal Canvas As Graphics, ByVal fld As FormLayoutFieldInfo, ByVal Value As String) As Integer
+  Private Function DrawField(Canvas As Graphics, fld As FormLayoutFieldInfo, Value As String) As Integer
     Dim height As Integer = CInt(fld.CaptionFont.GetHeight(Canvas))
     Dim rowHeight As Integer = height
 
@@ -4380,7 +4380,7 @@ Public Class csFormLayoutRpt
 
   End Function
 
-  Private Sub DrawRow(ByVal Canvas As Graphics)
+  Private Sub DrawRow(Canvas As Graphics)
     Dim rowHeight, maxRowHeight As Integer
     Dim Value As String
 
@@ -4423,7 +4423,7 @@ Public Class csFormLayoutRpt
 
   End Sub
 
-  Public Function TestGroupBreak(ByVal Canvas As Graphics) As Boolean
+  Public Function TestGroupBreak(Canvas As Graphics) As Boolean
 
     If GroupsReport.Count = 0 Then
       Return True
@@ -4463,7 +4463,7 @@ Public Class csFormLayoutRpt
 
   End Function
 
-  Protected Sub InitLayout(ByVal Canvas As System.Drawing.Graphics)
+  Protected Sub InitLayout(Canvas As System.Drawing.Graphics)
 
     If LayoutInitialized Then
       Return
@@ -4521,7 +4521,7 @@ Public Class csFormLayoutRpt
   ''' <param name="Canvas">Objecte graphcs sobre el que es dibuixa la pàgina.</param>
   ''' <returns></returns>
   ''' <remarks></remarks>
-  Public Overrides Function DrawPage(ByVal Canvas As System.Drawing.Graphics) As Boolean
+  Public Overrides Function DrawPage(Canvas As System.Drawing.Graphics) As Boolean
 
     If FirstPassReport Then
 
@@ -4592,7 +4592,7 @@ Public Class csFormLayoutRpt
 
   End Function
 
-  Private Sub DrawLineRow(ByVal Canvas As System.Drawing.Graphics)
+  Private Sub DrawLineRow(Canvas As System.Drawing.Graphics)
     If DrawLineBetweenRows Then
       If CurY + 2 > BottomY Then
         ' si esta a final de pàgina ja no cal dibuixar la línea
@@ -4626,7 +4626,7 @@ Public Class csFormLayoutRpt
     MyBase.Finalize()
   End Sub
 
-  Protected Overrides Sub Print2Excel(ByVal FileName As String)
+  Protected Overrides Sub Print2Excel(FileName As String)
 
     Dim xls As New C1.C1Excel.C1XLBook()
     Dim sheet As C1.C1Excel.XLSheet = xls.Sheets("Sheet1")
@@ -4686,21 +4686,21 @@ End Class
 Public Class csFreeLayoutRpt
   Inherits csRpt
 
-  Public Event PaintHeader(ByVal Canvas As Graphics, ByVal CurrentPage As Single, ByVal TotalPages As Single)
-  Public Event PaintColumnCaptions(ByVal Canvas As Graphics, ByRef ColumnCaptionsHaveBeenPrinted As Boolean)
-  Public Event PaintCriteria(ByVal Canvas As Graphics)
-  Public Event PaintGroupHeader(ByVal Canvas As Graphics, ByVal group As GroupInfo, ByRef GroupHeaderHasBeenPrinted As Boolean)
-  Public Event PaintRow(ByVal Canvas As Graphics, ByVal Row As IDataReader, ByRef RowHasBeenPrinted As Boolean)
-  Public Event PaintGroupFooter(ByVal Canvas As Graphics, ByVal group As GroupInfo, ByRef GroupFooterHasBeenPrinted As Boolean)
-  Public Event PaintSummary(ByVal Canvas As Graphics, ByVal group As GroupInfo, ByRef SummaryHasBeenPrinted As Boolean)
-  Public Event PaintFooter(ByVal Canvas As Graphics)
-  Public Event Export2Excel(ByVal FileName As String, ByRef Handled As Boolean)
+  Public Event PaintHeader(Canvas As Graphics, CurrentPage As Single, TotalPages As Single)
+  Public Event PaintColumnCaptions(Canvas As Graphics, ByRef ColumnCaptionsHaveBeenPrinted As Boolean)
+  Public Event PaintCriteria(Canvas As Graphics)
+  Public Event PaintGroupHeader(Canvas As Graphics, group As GroupInfo, ByRef GroupHeaderHasBeenPrinted As Boolean)
+  Public Event PaintRow(Canvas As Graphics, Row As IDataReader, ByRef RowHasBeenPrinted As Boolean)
+  Public Event PaintGroupFooter(Canvas As Graphics, group As GroupInfo, ByRef GroupFooterHasBeenPrinted As Boolean)
+  Public Event PaintSummary(Canvas As Graphics, group As GroupInfo, ByRef SummaryHasBeenPrinted As Boolean)
+  Public Event PaintFooter(Canvas As Graphics)
+  Public Event Export2Excel(FileName As String, ByRef Handled As Boolean)
   Public Event InitializeReportValues()
-  Public Event EventValue(ByVal Row As IDataReader, ByVal Column As ColumnInfo, ByRef NewValue As String)
-  Public Event UpdateValuesBeforeRowPrinted(ByVal Row As IDataReader, ByRef ProcessRow As Boolean)
-  Public Event UpdateValuesAfterRowPrinted(ByVal Row As IDataReader)
-  Public Event GetTotalColumn(ByVal ColumnFieldName As String, ByRef TotalValue As Decimal)
-  Public Event GetSubTotalColumn(ByVal ColumnFieldName As String, ByRef TotalValue As Decimal)
+  Public Event EventValue(Row As IDataReader, Column As ColumnInfo, ByRef NewValue As String)
+  Public Event UpdateValuesBeforeRowPrinted(Row As IDataReader, ByRef ProcessRow As Boolean)
+  Public Event UpdateValuesAfterRowPrinted(Row As IDataReader)
+  Public Event GetTotalColumn(ColumnFieldName As String, ByRef TotalValue As Decimal)
+  Public Event GetSubTotalColumn(ColumnFieldName As String, ByRef TotalValue As Decimal)
 
 #Region " Properties & enums "
   'Fem accessibles el Numero de pàgina i el total de pàgines
@@ -4721,7 +4721,7 @@ Public Class csFreeLayoutRpt
     Get
       Return CurY
     End Get
-    Set(ByVal value As Integer)
+    Set(value As Integer)
       CurY = value
     End Set
   End Property
@@ -4930,7 +4930,7 @@ Public Class csFreeLayoutRpt
       Get
         Return mFieldFormat
       End Get
-      Set(ByVal value As String)
+      Set(value As String)
         If String.IsNullOrEmpty(value) Then
           mFieldFormat = "{0}"
         Else
@@ -4945,7 +4945,7 @@ Public Class csFreeLayoutRpt
     ''' <param name="Format">Format que s'aplica.</param>
     ''' <param name="Formating">Tipus de format al que correspon el Fromat</param>
     ''' <remarks></remarks>
-    Public Sub SetFormat(ByVal Format As String, ByVal Formating As FormatingEnum)
+    Public Sub SetFormat(Format As String, Formating As FormatingEnum)
       Me.FieldFormating = Formating
       If Formating = FormatingEnum.StringFormat Then
         ' Format de .Net
@@ -5030,7 +5030,7 @@ Public Class csFreeLayoutRpt
     ''' <param name="dr">Datareader sobre el que comprobar si hi ha un canvi d'agruapció</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function IsBreak(ByVal dr As IDataReader) As Boolean
+    Public Function IsBreak(dr As IDataReader) As Boolean
       Return (Me.LastValue <> String.Format("{0}", dr(FieldData)))
     End Function
 
@@ -5039,7 +5039,7 @@ Public Class csFreeLayoutRpt
     ''' </summary>
     ''' <param name="Value">Nou valor de la agrupació</param>
     ''' <remarks></remarks>
-    Public Sub Init(ByVal Value As String)
+    Public Sub Init(Value As String)
       Me.LastValue = Value
     End Sub
 
@@ -5058,7 +5058,7 @@ Public Class csFreeLayoutRpt
     ''' </summary>
     ''' <param name="dr">DataReader que conte els valors dels camp a totalitzar.</param>
     ''' <remarks></remarks>
-    Public Sub UpdateTotals(ByVal dr As IDataReader)
+    Public Sub UpdateTotals(dr As IDataReader)
       For Each t As TotalInfo In Totals
         Select Case t.Col.TotalColumn
           Case TotalColumnEnum.Count
@@ -5402,7 +5402,7 @@ Public Class csFreeLayoutRpt
   ''' <param name="Aligment">Alineació a aplicar a la columna</param>
   ''' <returns></returns>
   ''' <remarks></remarks>
-  Public Function AddColumn(ByVal Caption As String, ByVal Width As Integer, ByVal FieldName As String, ByVal Aligment As StringAlignment) As ColumnInfo
+  Public Function AddColumn(Caption As String, Width As Integer, FieldName As String, Aligment As StringAlignment) As ColumnInfo
     Dim Column As New ColumnInfo
     With Column
       .Caption = Caption
@@ -5424,11 +5424,11 @@ Public Class csFreeLayoutRpt
     Return Column
   End Function
 
-  Public Function AddColumn(ByVal Width As Integer, ByVal Aligment As StringAlignment) As ColumnInfo
+  Public Function AddColumn(Width As Integer, Aligment As StringAlignment) As ColumnInfo
     Return AddColumn("", Width, "", Aligment)
   End Function
 
-  Private Function IndexOfColumn(ByVal ColumnField As String) As Integer
+  Private Function IndexOfColumn(ColumnField As String) As Integer
     Dim Index As Integer = 0
     For Each c As ColumnInfo In ColumnsReport
       If c.FieldName.ToUpper = ColumnField.ToUpper Then
@@ -5450,7 +5450,7 @@ Public Class csFreeLayoutRpt
   ''' <param name="FieldData">Nom del camp sobre el que es fa la agrupació</param>
   ''' <param name="FieldFormat">Format (.NET) a aplicar. </param>
   ''' <remarks></remarks>
-  Public Sub AddGroup(ByVal HeaderCaption As String, ByVal FooterCaption As String, ByVal FieldData As String, ByVal FieldFormat As String)
+  Public Sub AddGroup(HeaderCaption As String, FooterCaption As String, FieldData As String, FieldFormat As String)
     Dim Group As New GroupInfo
     With Group
 
@@ -5483,7 +5483,7 @@ Public Class csFreeLayoutRpt
   ''' <param name="SpaceBeforeCaption">Espai en 1/100" anabs de imprimir la capçalera. S'afegeig sempre encara que no s'imprimeixi el grup </param>
   ''' <param name="SpaceAfterFooter">Espai en 1/100" despres de imprimir el peu del grup. S'afegeig sempre encara que no s'imprimeixi el grup</param>
   ''' <remarks></remarks>
-  Public Sub AddGroup(ByVal HeaderCaption As String, ByVal FooterCaption As String, ByVal FieldData As String, ByVal FieldFormat As String, ByVal PrintHeaderCaption As Boolean, ByVal PrintFooterCaption As Boolean, ByVal SpaceBeforeCaption As Integer, ByVal SpaceAfterFooter As Integer)
+  Public Sub AddGroup(HeaderCaption As String, FooterCaption As String, FieldData As String, FieldFormat As String, PrintHeaderCaption As Boolean, PrintFooterCaption As Boolean, SpaceBeforeCaption As Integer, SpaceAfterFooter As Integer)
     Dim Group As New GroupInfo
 
     With Group
@@ -5511,7 +5511,7 @@ Public Class csFreeLayoutRpt
   ''' <param name="Caption">Titol del vaolr filtrat.</param>
   ''' <param name="Value">Valor aplicat al filtre.</param>
   ''' <remarks></remarks>
-  Public Sub AddCriteria(ByVal Caption As String, ByVal Value As String)
+  Public Sub AddCriteria(Caption As String, Value As String)
     Dim c As New CriteriaInfo
     c.Caption = Caption
     c.Value = Value
@@ -5527,7 +5527,7 @@ Public Class csFreeLayoutRpt
   ''' <param name="Aligment">Alineació a aplicar.</param>
   ''' <param name="Underlined">Subratllat.</param>
   ''' <remarks></remarks>
-  Public Sub AddGroupCaption(ByVal FromColumn As Integer, ByVal ToColumn As Integer, ByVal Caption As String, ByVal Aligment As StringAlignment, ByVal Underlined As Boolean)
+  Public Sub AddGroupCaption(FromColumn As Integer, ToColumn As Integer, Caption As String, Aligment As StringAlignment, Underlined As Boolean)
     Dim gc As New GroupCaptionInfo
     gc.FromColumn = FromColumn
     gc.ToColumn = ToColumn
@@ -5542,7 +5542,7 @@ Public Class csFreeLayoutRpt
   ''' </summary>
   ''' <param name="Value">True si es vol paper pijama.</param>
   ''' <remarks></remarks>
-  Public Sub SetPaperPijama(ByVal Value As Boolean)
+  Public Sub SetPaperPijama(Value As Boolean)
     Me.PaperPijama = Value
   End Sub
 
@@ -5552,7 +5552,7 @@ Public Class csFreeLayoutRpt
   ''' <param name="ResetOnNewPage">Reinicialitza el contador de paper pijama al canviar de pàgina.</param>
   ''' <param name="ResetOnNewGroup">Reinicialitza el contador de paper pijama al canviar de grup.</param>
   ''' <remarks></remarks>
-  Public Sub SetPaperPijama(ByVal ResetOnNewPage As Boolean, ByVal ResetOnNewGroup As Boolean)
+  Public Sub SetPaperPijama(ResetOnNewPage As Boolean, ResetOnNewGroup As Boolean)
     Me.PaperPijama = True
     Me.PijamaResetOnNewGroup = ResetOnNewGroup
     Me.PijamaResetOnNewPage = ResetOnNewPage
@@ -5565,7 +5565,7 @@ Public Class csFreeLayoutRpt
   ''' <param name="ResetOnNewGroup">Reinicialitza el contador de paper pijama al canviar de grup.</param>
   ''' <param name="PijamaPeriode">Indica cada cuantes linies es dibuija la linea ombrejada.</param>
   ''' <remarks></remarks>
-  Public Sub SetPaperPijama(ByVal ResetOnNewPage As Boolean, ByVal ResetOnNewGroup As Boolean, ByVal PijamaPeriode As Integer)
+  Public Sub SetPaperPijama(ResetOnNewPage As Boolean, ResetOnNewGroup As Boolean, PijamaPeriode As Integer)
     Me.PaperPijama = True
     Me.PijamaResetOnNewGroup = ResetOnNewGroup
     Me.PijamaResetOnNewPage = ResetOnNewPage
@@ -5580,7 +5580,7 @@ Public Class csFreeLayoutRpt
     Next
   End Sub
 
-  Private Sub DrawPageHeader(ByVal Canvas As Graphics)
+  Private Sub DrawPageHeader(Canvas As Graphics)
 
     CurrentPage += 1
 
@@ -5588,7 +5588,7 @@ Public Class csFreeLayoutRpt
 
   End Sub
 
-  Public Sub DrawDefaultPageHeader(ByVal Canvas As Graphics)
+  Public Sub DrawDefaultPageHeader(Canvas As Graphics)
     Dim sf As New StringFormat
 
     sf.Alignment = StringAlignment.Far
@@ -5605,11 +5605,11 @@ Public Class csFreeLayoutRpt
 
   End Sub
 
-  Private Sub DrawPageFooter(ByVal Canvas As Graphics)
+  Private Sub DrawPageFooter(Canvas As Graphics)
     RaiseEvent PaintFooter(Canvas)
   End Sub
 
-  Public Sub DrawDefaultPageFooter(ByVal Canvas As Graphics)
+  Public Sub DrawDefaultPageFooter(Canvas As Graphics)
     Dim y As Integer
     Dim sf As New StringFormat
     y = CInt(PageHeight - FooterFont.GetHeight(Canvas)) - 2
@@ -5629,11 +5629,11 @@ Public Class csFreeLayoutRpt
 
   End Sub
 
-  Private Sub DrawCriteria(ByVal Canvas As Graphics)
+  Private Sub DrawCriteria(Canvas As Graphics)
     RaiseEvent PaintCriteria(Canvas)
   End Sub
 
-  Public Sub DrawDefaultCriteria(ByVal Canvas As Graphics)
+  Public Sub DrawDefaultCriteria(Canvas As Graphics)
     If Criteria.Count = 0 Then
       Return
     End If
@@ -5665,7 +5665,7 @@ Public Class csFreeLayoutRpt
 
   End Sub
 
-  Private Function DrawGroupHeader(ByVal Canvas As System.Drawing.Graphics, ByVal group As GroupInfo) As Boolean
+  Private Function DrawGroupHeader(Canvas As System.Drawing.Graphics, group As GroupInfo) As Boolean
     Dim GroupHeaderHasBeenPrinted As Boolean
     GroupHeaderHasBeenPrinted = True
     RaiseEvent PaintGroupHeader(Canvas, group, GroupHeaderHasBeenPrinted)
@@ -5675,7 +5675,7 @@ Public Class csFreeLayoutRpt
     Return GroupHeaderHasBeenPrinted
   End Function
 
-  Public Function DrawDefaultGroupHeader(ByVal Canvas As System.Drawing.Graphics, ByVal group As GroupInfo) As Boolean
+  Public Function DrawDefaultGroupHeader(Canvas As System.Drawing.Graphics, group As GroupInfo) As Boolean
     '
     ' Calcular la alçada del text a imprimir
     Dim alsadaText, alsadaGrup As Integer
@@ -5715,7 +5715,7 @@ Public Class csFreeLayoutRpt
 
   End Function
 
-  Private Function DrawGroupFooter(ByVal Canvas As Graphics, ByVal group As GroupInfo) As Boolean
+  Private Function DrawGroupFooter(Canvas As Graphics, group As GroupInfo) As Boolean
     Dim GroupFooterHasBeenPrinted As Boolean
     GroupFooterHasBeenPrinted = True
     RaiseEvent PaintGroupFooter(Canvas, group, GroupFooterHasBeenPrinted)
@@ -5725,7 +5725,7 @@ Public Class csFreeLayoutRpt
     Return GroupFooterHasBeenPrinted
   End Function
 
-  Public Function DrawDefaultGroupFooter(ByVal Canvas As Graphics, ByVal gf As GroupInfo) As Boolean
+  Public Function DrawDefaultGroupFooter(Canvas As Graphics, gf As GroupInfo) As Boolean
     Dim alsadaText, alsadaGrup As Integer
     Dim totalValue As Decimal
 
@@ -5809,7 +5809,7 @@ Public Class csFreeLayoutRpt
 
   End Function
 
-  Private Function DrawSummary(ByVal Canvas As Graphics) As Boolean
+  Private Function DrawSummary(Canvas As Graphics) As Boolean
     Dim SummaryHasBeenPrinted As Boolean
     SummaryHasBeenPrinted = True
     RaiseEvent PaintSummary(Canvas, Totals, SummaryHasBeenPrinted)
@@ -5820,7 +5820,7 @@ Public Class csFreeLayoutRpt
     Return SummaryHasBeenPrinted
   End Function
 
-  Public Function DrawDefaultSummary(ByVal Canvas As Graphics) As Boolean
+  Public Function DrawDefaultSummary(Canvas As Graphics) As Boolean
     Dim alsadaSummary As Integer
     Dim alsadaText As Integer
     Dim totalValue As Decimal
@@ -5880,14 +5880,14 @@ Public Class csFreeLayoutRpt
 
   End Function
 
-  Private Function DrawColumnCaptions(ByVal Canvas As Graphics) As Boolean
+  Private Function DrawColumnCaptions(Canvas As Graphics) As Boolean
     Dim ColumnCaptionsHaveBeenPrinted As Boolean
     ColumnCaptionsHaveBeenPrinted = True
     RaiseEvent PaintColumnCaptions(Canvas, ColumnCaptionsHaveBeenPrinted)
     Return ColumnCaptionsHaveBeenPrinted
   End Function
 
-  Public Sub DrawDefaultColumnCaptions(ByVal Canvas As Graphics)
+  Public Sub DrawDefaultColumnCaptions(Canvas As Graphics)
 
     Dim sf As New StringFormat
     Dim rh As Integer = CInt(RowFont.GetHeight(Canvas))
@@ -5946,7 +5946,7 @@ Public Class csFreeLayoutRpt
 
   End Sub
 
-  Private Function DrawColumn(ByVal Canvas As Graphics, ByVal col As ColumnInfo, ByVal Value As String) As Integer
+  Private Function DrawColumn(Canvas As Graphics, col As ColumnInfo, Value As String) As Integer
     Dim height As Integer = CInt(RowFont.GetHeight(Canvas))
     Dim rowHeight As Integer = height
 
@@ -6121,7 +6121,7 @@ Public Class csFreeLayoutRpt
 
   End Function
 
-  Private Function DrawColumnLeft(ByVal Canvas As Graphics, ByVal col As ColumnInfo) As Integer
+  Private Function DrawColumnLeft(Canvas As Graphics, col As ColumnInfo) As Integer
     Dim height As Integer = CInt(RowFont.GetHeight(Canvas))
     Dim rowHeight As Integer = height
 
@@ -6158,14 +6158,14 @@ Public Class csFreeLayoutRpt
 
   End Function
 
-  Private Function DrawRow(ByVal Canvas As Graphics) As Boolean
+  Private Function DrawRow(Canvas As Graphics) As Boolean
     Dim RowHasBeenPrinted As Boolean
     RowHasBeenPrinted = True
     RaiseEvent PaintRow(Canvas, DataSource, RowHasBeenPrinted)
     Return RowHasBeenPrinted
   End Function
 
-  Public Function DrawDefaultRow(ByVal Canvas As Graphics) As Boolean
+  Public Function DrawDefaultRow(Canvas As Graphics) As Boolean
     Dim rowHeight, maxRowHeight As Integer
     Dim Value As String
 
@@ -6233,7 +6233,7 @@ Public Class csFreeLayoutRpt
 
   End Function
 
-  Public Function TestGroupBreak(ByVal Canvas As Graphics) As Boolean
+  Public Function TestGroupBreak(Canvas As Graphics) As Boolean
 
     If GroupsReport.Count = 0 Then
       Return True
@@ -6279,7 +6279,7 @@ Public Class csFreeLayoutRpt
 
   End Function
 
-  Protected Sub InitLayout(ByVal Canvas As System.Drawing.Graphics)
+  Protected Sub InitLayout(Canvas As System.Drawing.Graphics)
 
     If LayoutInitialized Then
       Return
@@ -6344,7 +6344,7 @@ Public Class csFreeLayoutRpt
   ''' <remarks></remarks>
   ''' 
 
-  Public Overrides Function DrawPage(ByVal Canvas As System.Drawing.Graphics) As Boolean
+  Public Overrides Function DrawPage(Canvas As System.Drawing.Graphics) As Boolean
     Dim ProcessRow As Boolean
 
     If FirstPassReport Then
@@ -6526,7 +6526,7 @@ Public Class csFreeLayoutRpt
     MyBase.Finalize()
   End Sub
 
-  Public Function GetSubTotalValue(ByVal ColumnFieldName As String) As Decimal
+  Public Function GetSubTotalValue(ColumnFieldName As String) As Decimal
     Dim Value As Decimal
     For Each t As TotalInfo In GroupsReport(SubGroupLevel).Totals
       If t.Col.FieldName.ToLower = ColumnFieldName.ToLower Then
@@ -6538,7 +6538,7 @@ Public Class csFreeLayoutRpt
 
   End Function
 
-  Public Function GetTotalValue(ByVal ColumnFieldName As String) As Decimal
+  Public Function GetTotalValue(ColumnFieldName As String) As Decimal
     Dim Value As Decimal
     For Each t As TotalInfo In Me.Totals.Totals
       If t.Col.FieldName.ToLower = ColumnFieldName.ToLower Then
@@ -6549,7 +6549,7 @@ Public Class csFreeLayoutRpt
     Return Value
   End Function
 
-  Protected Overrides Sub Print2Excel(ByVal FileName As String)
+  Protected Overrides Sub Print2Excel(FileName As String)
     Dim Handled As Boolean
     Handled = False
     RaiseEvent Export2Excel(FileName, Handled)
@@ -6558,7 +6558,7 @@ Public Class csFreeLayoutRpt
     End If
   End Sub
 
-  Public Sub DefaultPrint2Excel(ByVal FileName As String)
+  Public Sub DefaultPrint2Excel(FileName As String)
     Dim xls As New C1.C1Excel.C1XLBook()
     Dim sheet As C1.C1Excel.XLSheet = xls.Sheets("Sheet1")
     Dim colCount As Integer
@@ -6647,8 +6647,8 @@ Public Class csGeneralRpt
   Inherits csRpt
 
   Public Event InitializeReportValues()
-  Public Event PaintPage(ByVal Canvas As Graphics, ByRef HasMorePages As Boolean, ByVal CurrentPage As Single, ByVal TotalPages As Single)
-  Public Event Export2Excel(ByVal FileName As String, ByRef Handled As Boolean)
+  Public Event PaintPage(Canvas As Graphics, ByRef HasMorePages As Boolean, CurrentPage As Single, TotalPages As Single)
+  Public Event Export2Excel(FileName As String, ByRef Handled As Boolean)
 
 #Region " Fonts "
   Private DefaultHeaderFont As New Font("Arial", 10, FontStyle.Regular, GraphicsUnit.Point)
@@ -6688,13 +6688,13 @@ Public Class csGeneralRpt
     RaiseEvent InitializeReportValues()
   End Sub
 
-  Public Overrides Function DrawPage(ByVal Canvas As System.Drawing.Graphics) As Boolean
+  Public Overrides Function DrawPage(Canvas As System.Drawing.Graphics) As Boolean
     Dim HasMorePages As Boolean
     RaiseEvent PaintPage(Canvas, HasMorePages, CurrentPage, TotalPages)
     Return HasMorePages
   End Function
 
-  Protected Overrides Sub Print2Excel(ByVal FileName As String)
+  Protected Overrides Sub Print2Excel(FileName As String)
     Dim Handled As Boolean
     Handled = False
     RaiseEvent Export2Excel(FileName, Handled)

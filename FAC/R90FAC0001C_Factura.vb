@@ -89,11 +89,11 @@ Public Class R90FAC0001C_Factura
 
   Private NowPrinting As NowPrintingEnum
 
-  Public Shadows Property CustomID() As String
+  Public Shadows Property CustomID As String
     Get
       Return mCustomID
     End Get
-    Set(ByVal value As String)
+    Set
       If mCustomID <> value Then
 
         mCustomID = value
@@ -122,41 +122,41 @@ Public Class R90FAC0001C_Factura
 #Region " Propietat factura "
 
   Private mOrigenDades As String
-  Public Property OrigenDades() As String
+  Public Property OrigenDades As String
     Get
       Return mOrigenDades
     End Get
-    Set(ByVal value As String)
+    Set
       mOrigenDades = value
     End Set
   End Property
 
   Private mSerieFactura As String
-  Public Property SerieFactura() As String
+  Public Property SerieFactura As String
     Get
       Return mSerieFactura
     End Get
-    Set(ByVal value As String)
+    Set
       mSerieFactura = value
     End Set
   End Property
 
   Private mNumeroFactura As Integer
-  Public Property NumeroFactura() As Integer
+  Public Property NumeroFactura As Integer
     Get
       Return mNumeroFactura
     End Get
-    Set(ByVal value As Integer)
+    Set
       mNumeroFactura = value
     End Set
   End Property
 
   Private mAnyFactura As String
-  Public Property AnyFactura() As String
+  Public Property AnyFactura As String
     Get
       Return mAnyFactura
     End Get
-    Set(ByVal value As String)
+    Set
       mAnyFactura = value
     End Set
   End Property
@@ -166,32 +166,32 @@ Public Class R90FAC0001C_Factura
 #Region " Propietats llistat "
 
   Private mDestinacio As csRpt.ReportDestinationEnum
-  Public Property Destinacio() As csRpt.ReportDestinationEnum
+  Public Property Destinacio As csRpt.ReportDestinationEnum
     Get
       Return mDestinacio
     End Get
-    Set(ByVal value As csRpt.ReportDestinationEnum)
+    Set
       Destination = value
       mDestinacio = value
     End Set
   End Property
 
   Private mCopies As Integer
-  Public Property Copies() As Integer
+  Public Property Copies As Integer
     Get
       Return mCopies
     End Get
-    Set(ByVal value As Integer)
+    Set
       mCopies = value
     End Set
   End Property
 
   Private mFitxerPdf As String
-  Public Property FitxerPdf() As String
+  Public Property FitxerPdf As String
     Get
       Return mFitxerPdf
     End Get
-    Set(ByVal value As String)
+    Set
       mFitxerPdf = value
     End Set
   End Property
@@ -201,130 +201,130 @@ Public Class R90FAC0001C_Factura
 #Region " Propietats correo "
 
   Private mMailFeedback As String
-  Public Property MailFeedback() As String
+  Public Property MailFeedback As String
     Get
       Return mMailFeedback
     End Get
-    Set(ByVal value As String)
+    Set
       mMailFeedback = value
       MyBase.fmMailFeedBack = value
     End Set
   End Property
 
   Private mMailFrom As String
-  Public Property MailFrom() As String
+  Public Property MailFrom As String
     Get
       Return mMailFrom
     End Get
-    Set(ByVal value As String)
+    Set
       mMailFrom = value
       MyBase.fmMailFrom = value
     End Set
   End Property
 
   Private mMailReplyTo As String
-  Public Property MailReplyTo() As String
+  Public Property MailReplyTo As String
     Get
       Return mMailReplyTo
     End Get
-    Set(ByVal value As String)
+    Set
       mMailReplyTo = value
       MyBase.fmMailReplyTo = value
     End Set
   End Property
 
   Private mMailTo As String
-  Public Property MailTo() As String
+  Public Property MailTo As String
     Get
       Return mMailTo
     End Get
-    Set(ByVal value As String)
+    Set
       mMailTo = value.Trim
       MyBase.fmMailTo = value.Trim
     End Set
   End Property
 
   Private mMailSentOK As Boolean
-  Public Property MailSentOK() As Boolean
+  Public Property MailSentOK As Boolean
     Get
       Return mMailSentOK
     End Get
-    Set(ByVal value As Boolean)
+    Set
       mMailSentOK = value
     End Set
   End Property
 
   Private mSmtpLogin As String
-  Public Property SmtpLogin() As String
+  Public Property SmtpLogin As String
     Get
       Return mSmtpLogin
     End Get
-    Set(ByVal value As String)
+    Set
       mSmtpLogin = value
       MyBase.fmSmtpLogin = value
     End Set
   End Property
 
   Private mSmtpPassword As String
-  Public Property SmtpPassword() As String
+  Public Property SmtpPassword As String
     Get
       Return mSmtpPassword
     End Get
-    Set(ByVal value As String)
+    Set
       mSmtpPassword = value
       MyBase.fmSmtpPassword = value
     End Set
   End Property
 
   Private mSmtpServer As String
-  Public Property SmtpServer() As String
+  Public Property SmtpServer As String
     Get
       Return mSmtpServer
     End Get
-    Set(ByVal value As String)
+    Set
       mSmtpServer = value
       MyBase.fmSmtpServer = value
     End Set
   End Property
 
   Private mShowForm As Boolean
-  Public Property ShowForm() As Boolean
+  Public Property ShowForm As Boolean
     Get
       Return mShowForm
     End Get
-    Set(ByVal value As Boolean)
+    Set
       mShowForm = value
     End Set
   End Property
 
   Private mSubject As String
-  Public Property Subject() As String
+  Public Property Subject As String
     Get
       Return mSubject
     End Get
-    Set(ByVal value As String)
+    Set
       mSubject = value
       MyBase.fmSubject = value
     End Set
   End Property
 
   Private mBody As String
-  Public Property Body() As String
+  Public Property Body As String
     Get
       Return mBody
     End Get
-    Set(ByVal value As String)
+    Set
       mBody = value
       MyBase.fmBody = value
     End Set
   End Property
 
   Private mNomFitxer As String
-  Public Property NomFitxer() As String
+  Public Property NomFitxer As String
     Get
       Return mNomFitxer
     End Get
-    Set(ByVal value As String)
+    Set
       mNomFitxer = value
     End Set
   End Property
@@ -399,7 +399,7 @@ Public Class R90FAC0001C_Factura
     DrawingTotalsAndExit = False
   End Sub
 
-  Public Overrides Function DrawPage(ByVal Canvas As System.Drawing.Graphics) As Boolean
+  Public Overrides Function DrawPage(Canvas As System.Drawing.Graphics) As Boolean
     Dim hasMoreData As Boolean
     Dim printingSummaryData As Boolean
 
@@ -475,7 +475,7 @@ Public Class R90FAC0001C_Factura
 
   End Function
 
-  Private Sub PrintHeader(ByVal Canvas As System.Drawing.Graphics)
+  Private Sub PrintHeader(Canvas As System.Drawing.Graphics)
     ' Imprimeix les parts fixes de l'albara.
     Dim curX As Integer
     Dim width As Integer
@@ -614,7 +614,7 @@ Public Class R90FAC0001C_Factura
 
   End Sub
 
-  Private Function DrawItemBoxHeader(ByVal Canvas As System.Drawing.Graphics, ByVal curX As Integer, ByVal curY As Integer, ByVal width As Integer, ByVal height As Integer, ByVal delta As Integer, ByVal Title As String, ByVal TitleAlign As StringFormat, ByVal Value As String, ByVal ValueAlign As StringFormat, ByVal LastItem As Boolean) As Integer
+  Private Function DrawItemBoxHeader(Canvas As System.Drawing.Graphics, curX As Integer, curY As Integer, width As Integer, height As Integer, delta As Integer, Title As String, TitleAlign As StringFormat, Value As String, ValueAlign As StringFormat, LastItem As Boolean) As Integer
 
     DrawString(Canvas, Title, fntTitle, Brushes.Black, New RectangleF(curX, curY, width, delta), TitleAlign)
     DrawString(Canvas, Value, fntHdrValue, Brushes.Black, New RectangleF(curX, curY + delta, width, height - delta), ValueAlign)
@@ -626,7 +626,7 @@ Public Class R90FAC0001C_Factura
 
   End Function
 
-  Private Function FillDetail(ByVal Canvas As System.Drawing.Graphics) As Boolean
+  Private Function FillDetail(Canvas As System.Drawing.Graphics) As Boolean
 
     ' Imprimeix texte pendent de la última linea de la pagina
     If TextLeft <> String.Empty Then
@@ -700,7 +700,7 @@ Public Class R90FAC0001C_Factura
 
   End Function
 
-  Private Sub DrawLinFactura(ByVal Canvas As System.Drawing.Graphics)
+  Private Sub DrawLinFactura(Canvas As System.Drawing.Graphics)
     Dim curX As Integer
     Dim i As Integer
     Dim Import As Decimal = 0D
@@ -740,7 +740,7 @@ Public Class R90FAC0001C_Factura
 
   End Sub
 
-  Private Sub FillSummary(ByVal Canvas As System.Drawing.Graphics)
+  Private Sub FillSummary(Canvas As System.Drawing.Graphics)
     Dim marginBox As Integer = 5
     Dim delta As Integer = 20
     Dim height As Integer
@@ -820,7 +820,7 @@ Public Class R90FAC0001C_Factura
 
   End Sub
 
-  Private Sub SettingsLeft(ByVal pTextLeft As String, ByVal pOffsetLeft As Integer, ByVal pFontLeft As Font, ByVal pColumnLeft As Integer)
+  Private Sub SettingsLeft(pTextLeft As String, pOffsetLeft As Integer, pFontLeft As Font, pColumnLeft As Integer)
     TextLeft = pTextLeft
     OffsetLeft = pOffsetLeft
     OffsetTop = 0
@@ -828,21 +828,21 @@ Public Class R90FAC0001C_Factura
     ColumnLeft = pColumnLeft
   End Sub
 
-  Private Sub SettingsLeft(ByVal pOffsetLeft As Integer, ByVal pFontLeft As Font, ByVal pColumnLeft As Integer)
+  Private Sub SettingsLeft(pOffsetLeft As Integer, pFontLeft As Font, pColumnLeft As Integer)
     OffsetTop = 0
     OffsetLeft = pOffsetLeft
     fntLeft = pFontLeft
     ColumnLeft = pColumnLeft
   End Sub
 
-  Private Sub SettingsLeft(ByVal pOffsetTop As Integer, ByVal pOffsetLeft As Integer, ByVal pFontLeft As Font, ByVal pColumnLeft As Integer)
+  Private Sub SettingsLeft(pOffsetTop As Integer, pOffsetLeft As Integer, pFontLeft As Font, pColumnLeft As Integer)
     OffsetTop = pOffsetTop
     OffsetLeft = pOffsetLeft
     fntLeft = pFontLeft
     ColumnLeft = pColumnLeft
   End Sub
 
-  Private Function DrawTextLeft(ByVal Canvas As System.Drawing.Graphics) As Boolean
+  Private Function DrawTextLeft(Canvas As System.Drawing.Graphics) As Boolean
     Dim szFree As SizeF
     Dim szUsed As SizeF
     Dim sf As New StringFormat
@@ -880,7 +880,7 @@ Public Class R90FAC0001C_Factura
 
   End Function
 
-  Protected Overrides Sub Print2Excel(ByVal FileName As String)
+  Protected Overrides Sub Print2Excel(FileName As String)
 
   End Sub
 

@@ -4,7 +4,7 @@ Imports csUtils.Utils
 
 Public Class C00_gst_cli
 
-  Public Function GetClientByNIF(ByVal NifClient As String) As DataTable
+  Public Function GetClientByNIF(NifClient As String) As DataTable
     Dim oledbDa As New OleDbDataAdapter
     Dim OleDbComm As New OleDbCommand
     Dim dtFln As New DataTable
@@ -29,7 +29,7 @@ Public Class C00_gst_cli
     Return dtFln
   End Function
 
-  Public Function Lookup(ByVal CodiClient As String, ByVal CampRetorn As String) As Object
+  Public Function Lookup(CodiClient As String, CampRetorn As String) As Object
     Dim oledbComm As New OleDbCommand
     Dim cmd As String
     Dim retValue As Object
